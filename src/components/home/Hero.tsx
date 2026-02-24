@@ -44,7 +44,7 @@ export default function Hero() {
         </motion.p>
 
         <motion.h1
-          className="mb-6 text-5xl font-bold leading-tight tracking-tight md:text-7xl lg:text-8xl"
+          className="mb-6 text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-7xl lg:text-8xl"
           variants={item}
         >
           Designing at the

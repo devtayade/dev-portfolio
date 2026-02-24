@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 
 const navLinks = [
   { href: "/", label: "Work" },
@@ -73,6 +74,7 @@ export default function Navbar() {
               )}
             </Link>
           ))}
+          <ThemeToggle />
           <a
             href="/resume.pdf"
             download
@@ -97,9 +99,11 @@ export default function Navbar() {
           </a>
         </div>
 
-        {/* Mobile menu button */}
+        {/* Mobile controls */}
+        <div className="flex items-center gap-2 md:hidden">
+          <ThemeToggle />
         <button
-          className="relative z-50 flex h-10 w-10 items-center justify-center md:hidden"
+          className="relative z-50 flex h-10 w-10 items-center justify-center"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label="Toggle menu"
           data-cursor="pointer"
@@ -119,6 +123,7 @@ export default function Navbar() {
             />
           </div>
         </button>
+        </div>
       </nav>
 
       {/* Mobile menu */}
@@ -144,14 +149,17 @@ export default function Navbar() {
                   {link.label}
                 </Link>
               ))}
-              <a
-                href="/resume.pdf"
-                download
-                className="inline-flex w-fit items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-medium"
-                data-cursor="pointer"
-              >
-                Resume
-              </a>
+              <div className="flex items-center gap-3 pt-2">
+                <ThemeToggle />
+                <a
+                  href="/resume.pdf"
+                  download
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-medium"
+                  data-cursor="pointer"
+                >
+                  Resume
+                </a>
+              </div>
             </div>
           </motion.div>
         )}

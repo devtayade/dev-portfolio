@@ -23,70 +23,89 @@ export default function ProjectCard({
       }}
     >
       <Link href={`/work/${project.slug}`} data-cursor="pointer">
-        <motion.div
-          layoutId={`project-card-${project.slug}`}
-          className="group relative overflow-hidden rounded-2xl border border-border bg-card transition-shadow hover:shadow-2xl"
-          whileHover={{ y: -4 }}
-          transition={{ duration: 0.3 }}
+        <div
+          className="group relative overflow-hidden rounded border border-gray-100/60 bg-white transition-all dark:border-zinc-700/30 dark:bg-zinc-100"
+          style={{
+            boxShadow:
+              "0 2px 8px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.08), 0 0 0 0.5px rgba(0,0,0,0.04)",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.boxShadow =
+              "0 4px 12px rgba(0,0,0,0.08), 0 16px 40px rgba(0,0,0,0.12), 0 0 0 0.5px rgba(0,0,0,0.06)";
+            e.currentTarget.style.transform = "translateY(-3px)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.boxShadow =
+              "0 2px 8px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.08), 0 0 0 0.5px rgba(0,0,0,0.04)";
+            e.currentTarget.style.transform = "translateY(0)";
+          }}
+          onFocus={(e) => {
+            e.currentTarget.style.boxShadow =
+              "0 4px 12px rgba(0,0,0,0.08), 0 16px 40px rgba(0,0,0,0.12), 0 0 0 0.5px rgba(0,0,0,0.06)";
+          }}
+          onBlur={(e) => {
+            e.currentTarget.style.boxShadow =
+              "0 2px 8px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.08), 0 0 0 0.5px rgba(0,0,0,0.04)";
+          }}
         >
-          {/* Thumbnail area */}
-          <div
-            className={`relative h-64 w-full bg-gradient-to-br ${project.gradient} md:h-80`}
-          >
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-6xl font-bold text-white/20">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-            </div>
+          {/* Thumbnail area — polaroid-style padding */}
+          <div className="p-2 pb-0">
+            <div
+              className={`relative h-56 w-full overflow-hidden rounded-sm bg-gradient-to-br ${project.gradient} md:h-64`}
+            >
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="text-6xl font-bold text-white/20">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+              </div>
 
-            {/* Hover overlay */}
-            <div className="absolute inset-0 flex items-end bg-black/0 p-6 transition-all duration-300 group-hover:bg-black/20">
-              <motion.span
-                className="flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-gray-900 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-              >
-                View Case Study
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <line x1="5" y1="12" x2="19" y2="12" />
-                  <polyline points="12 5 19 12 12 19" />
-                </svg>
-              </motion.span>
+              {/* Hover overlay */}
+              <div className="absolute inset-0 flex items-end bg-black/0 p-4 transition-all duration-300 group-hover:bg-black/15">
+                <span className="flex items-center gap-2 rounded-full bg-white/90 px-3 py-1.5 text-xs font-medium text-gray-900 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                  View Case Study
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                  </svg>
+                </span>
+              </div>
             </div>
           </div>
 
-          {/* Content */}
-          <div className="p-6">
-            <div className="mb-3 flex flex-wrap gap-2">
+          {/* Content — polaroid bottom area */}
+          <div className="p-4 pt-3">
+            <div className="mb-2 flex flex-wrap gap-1.5">
               {project.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-full bg-accent/10 px-3 py-1 text-xs font-medium text-accent"
+                  className="rounded-full border border-gray-200 bg-gray-50 px-2.5 py-0.5 text-[10px] font-medium text-gray-500 dark:border-zinc-300 dark:bg-zinc-200 dark:text-zinc-500"
                 >
                   {tag}
                 </span>
               ))}
             </div>
-            <h3 className="mb-2 text-xl font-bold tracking-tight">
+            <h3 className="mb-1 text-base font-bold tracking-tight text-gray-900 dark:text-gray-800">
               {project.title}
             </h3>
-            <p className="text-sm leading-relaxed text-muted">
+            <p className="text-xs leading-relaxed text-gray-500 dark:text-gray-400">
               {project.subtitle}
             </p>
-            <div className="mt-4 flex items-center gap-3 text-xs text-muted">
+            <div className="mt-3 flex items-center gap-2 text-[10px] text-gray-400 dark:text-gray-400">
               <span>{project.role}</span>
-              <span className="text-border">|</span>
+              <span className="text-gray-300">|</span>
               <span>{project.timeline}</span>
             </div>
           </div>
-        </motion.div>
+        </div>
       </Link>
     </motion.div>
   );

@@ -11,9 +11,12 @@ const typeBadgeColor: Record<string, string> = {
   Mentoring: "bg-rose-500/90",
 };
 
+// Duplicate events for continuous scrolling effect
+const duplicatedEvents = [...events, ...events];
+
 export default function CommunityEvents() {
   return (
-    <section className="py-24">
+    <section className="py-24 overflow-hidden">
       {/* Heading stays inside the container */}
       <div className="mx-auto max-w-6xl px-6">
         <motion.div
@@ -29,26 +32,31 @@ export default function CommunityEvents() {
         </motion.div>
       </div>
 
-      {/* Full-viewport carousel — breaks out of max-w-6xl */}
+      {/* Full-viewport continuous carousel */}
       <div className="w-screen relative left-1/2 -translate-x-1/2">
-        <div className="scrollbar-hide flex gap-3 overflow-x-auto px-6 pb-4 md:px-12">
-          {events.map((event, index) => (
+        <motion.div
+          className="flex gap-3 w-max"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{
+            x: {
+              duration: 30,
+              repeat: Infinity,
+              ease: "linear",
+            },
+          }}
+        >
+          {duplicatedEvents.map((event, index) => (
             <motion.div
-              key={event.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.4, delay: index * 0.05 }}
+              key={`${event.name}-${index}`}
               whileHover={{ scale: 1.05, zIndex: 10 }}
               className="relative flex-shrink-0 w-72 md:w-80"
             >
               <div className="group relative aspect-[3/2] overflow-hidden rounded-lg bg-card">
-                {/* Photo — blurred at rest */}
                 <Image
                   src={event.photo}
                   alt={event.name}
                   fill
-                  className="object-cover brightness-90 blur-[4px] transition-[filter,transform] duration-400 group-hover:brightness-100 group-hover:blur-0 group-hover:scale-105"
+                  className="object-cover transition-transform duration-400 group-hover:scale-105"
                   sizes="(max-width: 768px) 288px, 320px"
                 />
 
@@ -73,7 +81,7 @@ export default function CommunityEvents() {
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

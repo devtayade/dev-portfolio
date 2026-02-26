@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import StoryIntro from "@/components/about/StoryIntro";
 import JourneyTimeline from "@/components/about/JourneyTimeline";
 import CommunityEvents from "@/components/about/CommunityEvents";
-import SkillsGrid from "@/components/about/SkillsGrid";
 
 export const metadata: Metadata = {
   title: "About",
@@ -16,7 +15,6 @@ export default function AboutPage() {
       <StoryIntro />
       <JourneyTimeline />
       <CommunityEvents />
-      <SkillsGrid />
     </>
   );
 }

@@ -23,14 +23,9 @@ export default function FeaturedWork() {
         </p>
       </motion.div>
 
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      <div className="flex flex-col gap-6">
         {projects.map((project, index) => (
-          <div
-            key={project.slug}
-            style={{ marginTop: index % 2 === 1 ? "2rem" : "0" }}
-          >
-            <ProjectCard project={project} index={index} />
-          </div>
+          <ProjectCard key={project.slug} project={project} index={index} />
         ))}
       </div>
     </section>

@@ -1,9 +1,9 @@
 "use client";
 
-import { useRef } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 
 const storyCards = [
   { src: "/photos/story-1.svg", caption: "Sketching ideas", x: 10, y: 20, rotate: -5 },
@@ -15,40 +15,17 @@ const storyCards = [
 const CARD_W = 140;
 const CARD_H = 175;
 
+const shadowRest = "0 2px 16px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.02)";
+const shadowHover = "0 20px 48px rgba(0,0,0,0.08), 0 8px 20px rgba(0,0,0,0.04)";
+
 function StoryPolaroid({
   card,
   index,
-  scrollProgress,
 }: {
   card: (typeof storyCards)[number];
   index: number;
-  scrollProgress: ReturnType<typeof useScroll>["scrollYProgress"];
 }) {
-  // Each card starts its animation at a slightly different scroll point (staggered)
-  const staggerStart = 0.05 + index * 0.06;
-  const staggerEnd = staggerStart + 0.35;
-
-  // Cards drop in from above
-  const y = useTransform(
-    scrollProgress,
-    [staggerStart, staggerEnd],
-    [-300, 0]
-  );
-  const opacity = useTransform(
-    scrollProgress,
-    [staggerStart, staggerStart + 0.12],
-    [0, 1]
-  );
-  const rotate = useTransform(
-    scrollProgress,
-    [staggerStart, staggerEnd],
-    [card.rotate * 3, card.rotate]
-  );
-  const scale = useTransform(
-    scrollProgress,
-    [staggerStart, staggerEnd],
-    [0.7, 1]
-  );
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <motion.div
@@ -57,17 +34,27 @@ function StoryPolaroid({
         left: card.x,
         top: card.y,
         width: CARD_W,
-        y,
-        opacity,
-        rotate,
-        scale,
-        zIndex: index + 1,
+        rotate: isHovered ? 0 : card.rotate,
+        zIndex: isHovered ? 20 : index + 1,
       }}
+      initial={{ opacity: 0, y: -60 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+      data-cursor="pointer"
     >
       {/* Push pin */}
-      <div
+      <motion.div
         className="absolute -top-3 left-1/2 -translate-x-1/2"
         style={{ zIndex: 10 }}
+        animate={{
+          rotate: isHovered ? 45 : 0,
+          y: isHovered ? -8 : 0,
+          scale: isHovered ? 1.15 : 1,
+        }}
+        transition={{ type: "spring", stiffness: 300, damping: 20 }}
       >
         <svg
           width="18"
@@ -76,64 +63,65 @@ function StoryPolaroid({
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <line x1="9" y1="14" x2="9" y2="22" stroke="#999" strokeWidth="1.2" />
-          <circle cx="9" cy="8" r="7" fill="#dc2626" />
-          <circle cx="7" cy="6" r="2.5" fill="white" opacity="0.35" />
-          <circle
-            cx="9"
-            cy="8"
-            r="7"
-            fill="none"
-            stroke="rgba(0,0,0,0.15)"
-            strokeWidth="0.5"
+          <motion.line
+            x1="9" y1="14" x2="9" y2="22"
+            className="stroke-muted/50"
+            strokeWidth="1.2"
+            animate={{ opacity: isHovered ? 0.3 : 1 }}
           />
+          <motion.circle
+            cx="9" cy="8" r="7"
+            animate={{ fill: isHovered ? "#f87171" : "#dc2626" }}
+            transition={{ duration: 0.2 }}
+          />
+          <circle cx="7" cy="6" r="2.5" fill="white" opacity="0.35" />
+          <circle cx="9" cy="8" r="7" fill="none" stroke="rgba(0,0,0,0.15)" strokeWidth="0.5" />
         </svg>
-        <div className="absolute top-4 left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-black/10 blur-[2px]" />
-      </div>
+        {!isHovered && (
+          <div className="absolute top-4 left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-foreground/10 blur-[2px]" />
+        )}
+      </motion.div>
 
       {/* Polaroid card */}
-      <div
-        className="rounded border border-gray-100/60 bg-white p-1.5 pb-8 dark:border-zinc-700/30 dark:bg-zinc-100"
+      <motion.div
+        className="border border-border bg-card p-1.5 pb-8"
         style={{
           width: CARD_W,
           height: CARD_H,
-          boxShadow:
-            "0 2px 8px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.08), 0 0 0 0.5px rgba(0,0,0,0.04)",
+          transformOrigin: "center top",
+        }}
+        animate={{
+          scale: isHovered ? 1.12 : 1,
+          boxShadow: isHovered ? shadowHover : shadowRest,
+        }}
+        transition={{
+          scale: { duration: 0.4, ease: [0.25, 0.4, 0.25, 1] },
+          boxShadow: { duration: 0.4 },
         }}
       >
-        <div className="relative h-[calc(100%-1.5rem)] w-full overflow-hidden bg-gray-100 dark:bg-gray-200">
+        <div className="relative h-[calc(100%-1.5rem)] w-full overflow-hidden bg-background">
           <Image
             src={card.src}
             alt={card.caption}
             fill
             className="object-cover"
-            sizes="140px"
+            sizes={isHovered ? "320px" : "140px"}
           />
         </div>
         <p
-          className="mt-1.5 text-center text-[10px] italic text-gray-500 dark:text-gray-400"
+          className="mt-1.5 text-center text-[10px] italic text-muted"
           style={{ fontFamily: "Georgia, serif" }}
         >
           {card.caption}
         </p>
-      </div>
+      </motion.div>
     </motion.div>
   );
 }
 
 export default function AboutTeaser() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "center center"],
-  });
-
-  // Text fades in as cards land
-  const textOpacity = useTransform(scrollYProgress, [0.2, 0.5], [0, 1]);
-  const textY = useTransform(scrollYProgress, [0.2, 0.5], [40, 0]);
-
   return (
-    <section ref={sectionRef} className="mx-auto max-w-6xl px-6 py-24">
+    <section className="mx-auto max-w-6xl px-6 py-24">
       <div className="grid items-center gap-12 md:grid-cols-2">
         {/* Left: Story Polaroids */}
         <div className="relative hidden h-[400px] md:block">
@@ -142,7 +130,6 @@ export default function AboutTeaser() {
               key={card.caption}
               card={card}
               index={i}
-              scrollProgress={scrollYProgress}
             />
           ))}
         </div>
@@ -150,21 +137,12 @@ export default function AboutTeaser() {
         {/* Mobile fallback: simple grid of polaroids */}
         <div className="grid grid-cols-2 gap-4 md:hidden">
           {storyCards.map((card) => (
-            <motion.div
-              key={card.caption}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.5 }}
-            >
+            <div key={card.caption}>
               <div
-                className="rounded border border-gray-100/60 bg-white p-1.5 pb-6 dark:border-zinc-700/30 dark:bg-zinc-100"
-                style={{
-                  boxShadow:
-                    "0 2px 8px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.08), 0 0 0 0.5px rgba(0,0,0,0.04)",
-                }}
+                className="border border-border bg-card p-1.5 pb-6"
+                style={{ boxShadow: shadowRest }}
               >
-                <div className="relative aspect-[4/3] w-full overflow-hidden bg-gray-100 dark:bg-gray-200">
+                <div className="relative aspect-[4/3] w-full overflow-hidden bg-background">
                   <Image
                     src={card.src}
                     alt={card.caption}
@@ -174,18 +152,18 @@ export default function AboutTeaser() {
                   />
                 </div>
                 <p
-                  className="mt-1.5 text-center text-[10px] italic text-gray-500 dark:text-gray-400"
+                  className="mt-1.5 text-center text-[10px] italic text-muted"
                   style={{ fontFamily: "Georgia, serif" }}
                 >
                   {card.caption}
                 </p>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* Right: Text */}
-        <motion.div style={{ opacity: textOpacity, y: textY }}>
+        <div>
           <h2 className="mb-6 text-3xl font-bold tracking-tight md:text-4xl">
             The story behind
             <br />
@@ -220,7 +198,7 @@ export default function AboutTeaser() {
               <polyline points="12 5 19 12 12 19" />
             </svg>
           </Link>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

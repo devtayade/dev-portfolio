@@ -8,31 +8,20 @@
   --color-muted: var(--muted);
   --color-border: var(--border);
   --color-card: var(--card);
+  --color-card-elevated: var(--card-elevated);
   --font-sans: var(--font-space-grotesk);
 }
 
-/* Light theme (default) */
 :root {
-  --background: #ffffff;
+  --background: #f4f2ef;
   --foreground: #0e121b;
   --accent: #6366f1;
   --accent-light: #818cf8;
   --muted: #6b7280;
-  --border: #e5e7eb;
-  --card: #f9fafb;
+  --border: #e0ddd8;
+  --card: #ffffff;
+  --card-elevated: #ffffff;
   color-scheme: light;
-}
-
-/* Dark theme */
-html.dark {
-  --background: #09090b;
-  --foreground: #fafafa;
-  --accent: #818cf8;
-  --accent-light: #a5b4fc;
-  --muted: #a1a1aa;
-  --border: #27272a;
-  --card: #18181b;
-  color-scheme: dark;
 }
 
 html {
@@ -58,7 +47,8 @@ body {
   color: var(--foreground);
   font-family: var(--font-space-grotesk), system-ui, sans-serif;
   cursor: none;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  position: relative;
+  overflow-x: clip;
 }
 
 @media (pointer: coarse) {
@@ -84,20 +74,11 @@ button {
   color: white;
 }
 
-/* Marquee animation */
-@keyframes marquee {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-.animate-marquee {
-  animation: marquee 30s linear infinite;
-}
-
-.animate-marquee:hover {
-  animation-play-state: paused;
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }

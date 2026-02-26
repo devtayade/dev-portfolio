@@ -82,7 +82,7 @@ export default function ContactForm() {
             required
             value={formData.name}
             onChange={handleChange}
-            className="w-full rounded-xl border border-border bg-card px-4 py-3 text-foreground transition-colors focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+            className="w-full rounded-2xl border border-border bg-card px-4 py-3.5 text-foreground transition-all focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
             placeholder="Your name"
           />
         </div>
@@ -101,7 +101,7 @@ export default function ContactForm() {
             required
             value={formData.email}
             onChange={handleChange}
-            className="w-full rounded-xl border border-border bg-card px-4 py-3 text-foreground transition-colors focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+            className="w-full rounded-2xl border border-border bg-card px-4 py-3.5 text-foreground transition-all focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
             placeholder="you@example.com"
           />
         </div>
@@ -120,7 +120,7 @@ export default function ContactForm() {
             rows={5}
             value={formData.message}
             onChange={handleChange}
-            className="w-full resize-none rounded-xl border border-border bg-card px-4 py-3 text-foreground transition-colors focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+            className="w-full resize-none rounded-2xl border border-border bg-card px-4 py-3.5 text-foreground transition-all focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
             placeholder="Tell me about your project..."
           />
         </div>
@@ -128,7 +128,7 @@ export default function ContactForm() {
         <motion.button
           type="submit"
           disabled={isSubmitting}
-          className="flex w-full items-center justify-center gap-2 rounded-xl bg-accent px-6 py-3.5 text-sm font-medium text-white transition-colors hover:bg-accent-light disabled:opacity-50"
+          className="flex w-full items-center justify-center gap-2 rounded-2xl bg-accent px-6 py-3.5 text-sm font-medium text-white transition-colors hover:bg-accent-light disabled:opacity-50"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           data-cursor="pointer"

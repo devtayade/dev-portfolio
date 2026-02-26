@@ -10,6 +10,7 @@ const placeholderPosts = [
     date: "2026-02-20",
     readingTime: "6 min read",
     tag: "AI",
+    accent: "from-fuchsia-50 to-purple-50/50",
   },
   {
     slug: "my-design-process",
@@ -17,6 +18,7 @@ const placeholderPosts = [
     date: "2026-02-10",
     readingTime: "4 min read",
     tag: "Process",
+    accent: "from-teal-50 to-emerald-50/50",
   },
   {
     slug: "community-driven-design",
@@ -24,8 +26,12 @@ const placeholderPosts = [
     date: "2026-01-28",
     readingTime: "5 min read",
     tag: "Community",
+    accent: "from-orange-50 to-amber-50/50",
   },
 ];
+
+const shadowRest = "0 2px 16px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.02)";
+const shadowHover = "0 20px 48px rgba(0,0,0,0.08), 0 8px 20px rgba(0,0,0,0.04)";
 
 export default function RecentFieldNotes() {
   return (
@@ -60,6 +66,7 @@ export default function RecentFieldNotes() {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
+            aria-hidden="true"
           >
             <line x1="5" y1="12" x2="19" y2="12" />
             <polyline points="12 5 19 12 12 19" />
@@ -78,41 +85,46 @@ export default function RecentFieldNotes() {
           >
             <Link href={`/field-notes/${post.slug}`} data-cursor="pointer">
               <div
-                className="group rounded border border-gray-100/60 bg-white p-5 transition-all dark:border-zinc-700/30 dark:bg-zinc-100"
+                className="group relative overflow-hidden rounded-2xl border border-border bg-card p-5 transition-all duration-300"
                 style={{
-                  boxShadow:
-                    "0 2px 8px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.08), 0 0 0 0.5px rgba(0,0,0,0.04)",
-                  transition: "box-shadow 0.3s ease, transform 0.3s ease",
+                  boxShadow: shadowRest,
+                  transition:
+                    "box-shadow 0.35s cubic-bezier(0.25, 0.4, 0.25, 1), transform 0.35s cubic-bezier(0.25, 0.4, 0.25, 1)",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow =
-                    "0 4px 12px rgba(0,0,0,0.08), 0 16px 40px rgba(0,0,0,0.12), 0 0 0 0.5px rgba(0,0,0,0.06)";
-                  e.currentTarget.style.transform = "translateY(-3px)";
+                  e.currentTarget.style.boxShadow = shadowHover;
+                  e.currentTarget.style.transform = "translateY(-4px)";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow =
-                    "0 2px 8px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.08), 0 0 0 0.5px rgba(0,0,0,0.04)";
+                  e.currentTarget.style.boxShadow = shadowRest;
                   e.currentTarget.style.transform = "translateY(0)";
                 }}
               >
-                <div className="mb-3 flex items-center gap-2">
-                  <span className="rounded-full border border-gray-200 bg-gray-50 px-2.5 py-0.5 text-[10px] font-medium text-gray-500 dark:border-zinc-300 dark:bg-zinc-200 dark:text-zinc-500">
-                    {post.tag}
-                  </span>
-                  <span className="text-[10px] text-gray-400">
-                    {post.readingTime}
-                  </span>
+                {/* Subtle gradient accent */}
+                <div
+                  className={`pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br opacity-60 ${post.accent}`}
+                />
+
+                <div className="relative">
+                  <div className="mb-3 flex items-center gap-2">
+                    <span className="rounded-full border border-border bg-card px-2.5 py-0.5 text-[10px] font-medium text-muted">
+                      {post.tag}
+                    </span>
+                    <span className="text-[10px] text-muted/70">
+                      {post.readingTime}
+                    </span>
+                  </div>
+                  <h3 className="mb-2 text-base font-semibold leading-snug tracking-tight text-foreground transition-colors group-hover:text-accent">
+                    {post.title}
+                  </h3>
+                  <p className="text-[10px] text-muted/70">
+                    {new Date(post.date).toLocaleDateString("en-US", {
+                      month: "long",
+                      day: "numeric",
+                      year: "numeric",
+                    })}
+                  </p>
                 </div>
-                <h3 className="mb-2 text-base font-semibold leading-snug tracking-tight text-gray-900 transition-colors group-hover:text-accent dark:text-gray-800">
-                  {post.title}
-                </h3>
-                <p className="text-[10px] text-gray-400">
-                  {new Date(post.date).toLocaleDateString("en-US", {
-                    month: "long",
-                    day: "numeric",
-                    year: "numeric",
-                  })}
-                </p>
               </div>
             </Link>
           </motion.div>
@@ -135,6 +147,7 @@ export default function RecentFieldNotes() {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
+            aria-hidden="true"
           >
             <line x1="5" y1="12" x2="19" y2="12" />
             <polyline points="12 5 19 12 12 19" />

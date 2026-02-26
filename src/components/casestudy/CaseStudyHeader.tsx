@@ -9,9 +9,9 @@ export default function CaseStudyHeader({ project }: { project: Project }) {
       {/* Hero gradient */}
       <motion.div
         layoutId={`project-card-${project.slug}`}
-        className={`relative h-[50vh] w-full bg-gradient-to-br ${project.gradient} md:h-[60vh]`}
+        className={`relative h-[50vh] w-full bg-gradient-to-br ${project.gradientLight} md:h-[60vh]`}
       >
-        <div className="absolute inset-0 bg-black/30" />
+        <div className="absolute inset-0 bg-black/5" />
         <div className="absolute inset-0 flex items-end">
           <div className="mx-auto w-full max-w-6xl px-6 pb-12">
             <motion.div

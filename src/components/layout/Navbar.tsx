@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import ThemeToggle from "@/components/ui/ThemeToggle";
 
 const navLinks = [
   { href: "/", label: "Work" },
@@ -74,7 +73,6 @@ export default function Navbar() {
               )}
             </Link>
           ))}
-          <ThemeToggle />
           <a
             href="/resume.pdf"
             download
@@ -101,8 +99,7 @@ export default function Navbar() {
 
         {/* Mobile controls */}
         <div className="flex items-center gap-2 md:hidden">
-          <ThemeToggle />
-        <button
+          <button
           className="relative z-50 flex h-10 w-10 items-center justify-center"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label="Toggle menu"
@@ -150,7 +147,6 @@ export default function Navbar() {
                 </Link>
               ))}
               <div className="flex items-center gap-3 pt-2">
-                <ThemeToggle />
                 <a
                   href="/resume.pdf"
                   download

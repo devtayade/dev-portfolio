@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 
 export default function StoryIntro() {
@@ -54,21 +55,22 @@ export default function StoryIntro() {
           </motion.div>
         </div>
 
-        {/* Photo */}
         <motion.div
-          initial={{ opacity: 0, rotate: 3, scale: 0.95 }}
-          animate={{ opacity: 1, rotate: 0, scale: 1 }}
+          initial={{ opacity: 0, scale: 0.97 }}
+          animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.3 }}
-          className="relative"
+          className="aspect-[3/4] overflow-hidden border border-border bg-card"
         >
-          <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-gradient-to-br from-accent/20 to-purple-500/20 shadow-2xl">
-            <div className="absolute inset-0 flex items-center justify-center text-8xl text-accent/20">
-              &#x1f4f7;
-            </div>
-          </div>
-          {/* Decorative frame */}
-          <div className="absolute -bottom-3 -right-3 -z-10 h-full w-full rounded-2xl border-2 border-accent/30" />
-          <div className="absolute -top-3 -left-3 -z-10 h-full w-full rounded-2xl border-2 border-purple-500/20" />
+          <Image
+            src="/photos/story-1.svg"
+            alt="Portrait photo"
+            fill={false}
+            width={600}
+            height={800}
+            priority
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="h-full w-full object-cover"
+          />
         </motion.div>
       </div>
     </section>

@@ -64,11 +64,11 @@ export default function BeforeAfterSlider({
 
       {/* Divider */}
       <motion.div
-        className="absolute top-0 bottom-0 z-10 w-0.5 bg-white shadow-lg"
+        className="absolute top-0 bottom-0 z-10 w-0.5 bg-card shadow-lg"
         style={{ left: `${position}%` }}
       >
-        <div className="absolute top-1/2 left-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-lg">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#333" strokeWidth="2">
+        <div className="absolute top-1/2 left-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-card shadow-lg">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-foreground">
             <polyline points="15 18 9 12 15 6" />
             <polyline points="9 18 15 12 9 6" transform="translate(6, 0)" />
           </svg>

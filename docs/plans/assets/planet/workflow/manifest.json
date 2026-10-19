@@ -1,0 +1,4236 @@
+{
+  "schema_version": 1,
+  "generated_by": "scripts/planet_images.py",
+  "source": {
+    "path": "docs/plans/assets/planet/PROMPTS.md",
+    "sha256": "fe25d834c4ad255d033c3d3831d8cc9325ce1a123138bf13e1788cb637eb1c66"
+  },
+  "built_at": "2026-10-19T09:26:13+00:00",
+  "refreshed_at": "2026-10-19T09:26:13+00:00",
+  "notes": [
+    "PROMPTS.md was written for Gemini; this workflow generates images by hand in ChatGPT. Prompt text is used verbatim; only the surrounding instructions mention ChatGPT.",
+    "PROMPTS.md says 'Total: about 55 images. Night first; each day version attaches its night version.'. Parsing found 64 required assets plus 1 optional (H4).",
+    "PROMPTS.md specifies aspect ratios (21:9, 16:9, 3:4, 1:1) but no pixel dimensions; size checks compare ratios, and day/repaint versions are compared to their approved source.",
+    "Design doc referenced by PROMPTS.md (docs/plans/2026-10-19-little-planet-design.md) is not in the repository."
+  ],
+  "how_to_use": {
+    "1": "Gemini (gemini.google.com), image generation (Nano Banana). Always the largest size offered.",
+    "2": "Work in ORDER, step by step. Later prompts attach earlier results to keep the style locked.",
+    "3": "Each prompt has an ID (B1, C4, E7 ...). Save the result as that ID in\ndocs/plans/assets/planet/incoming/B1.png\nSeveral tries: B1-1.png, B1-2.png ... (keep them all; tell Claude which one you like).",
+    "4": "\"ATTACH:\" = upload those files with the prompt (paperclip / + button).\nThe style plates are in docs/plans/assets/planet/style/:\nnight.png  (the approved night scene)      day.png  (the approved day scene)\nyou.png    (you in the suit)",
+    "5": "Copy everything between the ---8<--- lines, exactly.",
+    "6": "Ratio: use the ratio named in the prompt (16:9 or 21:9). If Gemini refuses it, take the closest.",
+    "7": "Regenerate if you get: text, letters or numbers; black outlines; a glossy 3D or photo look;\na watermark; a background that isn't perfectly flat (for cut-out pieces).",
+    "8": "STOP POINTS (marked >>> STOP) — send those files to Claude before continuing. Claude runs them\nthrough the pipeline to check cut-outs, seams and alignment, so a problem is found on 2 images,\nnot 20."
+  },
+  "key_colours": [
+    "- MAGENTA  #FF00FF  — buildings, ground, props, the character.",
+    "- GREEN    #00FF00  — clouds, planets, nebulae, sky objects (they contain lilac/purple, which a magenta background would eat into).",
+    "The key colour must be perfectly flat: no texture, paper grain, shadow, glow or gradient on it."
+  ],
+  "steps": {
+    "A": {
+      "title": "STYLE PLATES  (done)",
+      "notes": [
+        "night.png, day.png, you.png in docs/plans/assets/planet/style/. Nothing to do."
+      ]
+    },
+    "B": {
+      "title": "THE SKY",
+      "notes": []
+    },
+    "C": {
+      "title": "FAR RIDGES AND HILLS  (three pieces each, joining left to right)",
+      "notes": []
+    },
+    "D": {
+      "title": "THE GROUND",
+      "notes": []
+    },
+    "E": {
+      "title": "THE BUILDINGS",
+      "notes": [
+        "Every building: night with door closed first, then door open, then the day versions.",
+        "All on flat magenta, standing on a short strip of the same sandy path at the bottom.",
+        "Use this ending on every E prompt (already included below):",
+        "\"Side view, almost no perspective, the building standing on a short strip of sandy path at the bottom edge. Everything else is perfectly flat solid magenta (#FF00FF), with no texture, grain, shadow or glow. Exactly the style of the attached illustration: hand-painted storybook gouache on paper, paper grain, no black outlines, flat two-or-three-tone shading, cozy little sci-fi. No people, no text, no letters, no numbers, no logos.\""
+      ]
+    },
+    "F": {
+      "title": "PROPS",
+      "notes": []
+    },
+    "G": {
+      "title": "THE OBSERVATORY INSIDE AND THE TELESCOPE",
+      "notes": []
+    },
+    "H": {
+      "title": "YOU",
+      "notes": []
+    }
+  },
+  "style_plates": [
+    "docs/plans/assets/planet/style/day.png",
+    "docs/plans/assets/planet/style/night.png",
+    "docs/plans/assets/planet/style/you.png"
+  ],
+  "checkpoints": [
+    {
+      "id": "STOP-B8",
+      "after": "B8",
+      "source_line": 106,
+      "assets": [
+        "B1",
+        "B2",
+        "B5",
+        "B7"
+      ],
+      "conditional_assets": [],
+      "purpose": "seam check and green cut-out check",
+      "text": ">>> STOP — send B1, B2, B5 and B7 to Claude (seam check and green cut-out check).",
+      "position": 7,
+      "status": "pending",
+      "passed_at": null,
+      "note": null
+    },
+    {
+      "id": "STOP-C12",
+      "after": "C12",
+      "source_line": 156,
+      "assets": [
+        "C1",
+        "C2",
+        "C4",
+        "C7"
+      ],
+      "conditional_assets": [],
+      "purpose": "seam and day/night alignment check",
+      "text": ">>> STOP — send C1, C2, C4 and C7 to Claude (seam and day/night alignment check).",
+      "position": 19,
+      "status": "pending",
+      "passed_at": null,
+      "note": null
+    },
+    {
+      "id": "STOP-D10",
+      "after": "D10",
+      "source_line": 193,
+      "assets": [
+        "D1",
+        "D2",
+        "D4"
+      ],
+      "conditional_assets": [],
+      "purpose": null,
+      "text": ">>> STOP — send D1, D2, D4 to Claude.",
+      "position": 29,
+      "status": "pending",
+      "passed_at": null,
+      "note": null
+    },
+    {
+      "id": "STOP-E7",
+      "after": "E7",
+      "source_line": 246,
+      "assets": [
+        "E1",
+        "E2",
+        "E7"
+      ],
+      "conditional_assets": [],
+      "purpose": "cut-out check, scale check against the character",
+      "text": ">>> STOP — send E1, E2 and E7 to Claude (cut-out check, scale check against the character).",
+      "position": 36,
+      "status": "pending",
+      "passed_at": null,
+      "note": null
+    },
+    {
+      "id": "STOP-G5",
+      "after": "G5",
+      "source_line": 323,
+      "assets": [
+        "G1",
+        "G2"
+      ],
+      "conditional_assets": [],
+      "purpose": null,
+      "text": ">>> STOP — send G1 and G2 to Claude.",
+      "position": 60,
+      "status": "pending",
+      "passed_at": null,
+      "note": null
+    },
+    {
+      "id": "STOP-H3",
+      "after": "H3",
+      "source_line": 348,
+      "assets": [
+        "H1"
+      ],
+      "conditional_assets": [
+        "H4"
+      ],
+      "purpose": null,
+      "text": ">>> STOP — send H1 to Claude. If the eight walk frames don't match each other closely (the face, suit or size changes between frames), Claude will ask for H4 instead:",
+      "position": 63,
+      "status": "pending",
+      "passed_at": null,
+      "note": null
+    }
+  ],
+  "assets": [
+    {
+      "id": "B1",
+      "order": 0,
+      "step": "B",
+      "title": "Night sky, left half",
+      "derived_from": null,
+      "group_title": null,
+      "optional": false,
+      "source_line": 58,
+      "attach_line": "style/night.png",
+      "attachments": [
+        {
+          "token": "style/night.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/night.png"
+        }
+      ],
+      "dependencies": [],
+      "references": [
+        "docs/plans/assets/planet/style/night.png"
+      ],
+      "prompt": "Paint ONLY the sky as a very wide 21:9 panorama, in exactly the style of the attached illustration: deep navy at the top fading to indigo and a soft lilac glow near the bottom edge, thousands of small cream and pale-yellow stars of different sizes, a few brighter four-pointed sparkle stars, and a soft hand-painted Milky Way band crossing diagonally with faint lilac and violet nebula clouds along it. Hand-painted gouache on textured paper, visible paper grain. No planets, no moons, no clouds, no hills, no ground, no buildings, no objects, no text. Just the sky, filling the whole image edge to edge.",
+      "prompt_sha256": "c5f3869cea5c269946c54465bfad42ecf56d2f3cfe45769f69a8584b5f31cbca",
+      "ratio": "21:9",
+      "ratio_source": "stated in prompt",
+      "size_rule": null,
+      "key_color": null,
+      "key_hex": null,
+      "key_region": null,
+      "key_region_rationale": "no chroma key in prompt: the image is full-bleed artwork",
+      "continuation_of": null,
+      "step_title": "THE SKY",
+      "expected_filename": "B1.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/B1.png",
+      "approved_path": "docs/plans/assets/planet/approved/B1.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "missing reference file docs/plans/assets/planet/style/night.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "B2",
+      "order": 1,
+      "step": "B",
+      "title": "Night sky, right half (continues B1)",
+      "derived_from": null,
+      "group_title": null,
+      "optional": false,
+      "source_line": 64,
+      "attach_line": "B1.png",
+      "attachments": [
+        {
+          "token": "B1.png",
+          "kind": "asset",
+          "id": "B1",
+          "path": "docs/plans/assets/planet/approved/B1.png"
+        }
+      ],
+      "dependencies": [
+        "B1"
+      ],
+      "references": [],
+      "prompt": "Continue the attached sky panorama to the right as a new very wide 21:9 image. The left quarter of the new image must repeat the right quarter of the attached image as closely as possible (same stars, same Milky Way, same colours), and then the sky continues to the right with new stars, the Milky Way band slowly fading out and a faint lilac nebula patch. Exactly the same style, colours and paper grain. No planets, no moons, no clouds, no ground, no objects, no text.",
+      "prompt_sha256": "5e3324356fc9cad1d069d51b8436d24770aa11fb59fe5c0d9fac33d495b1ef72",
+      "ratio": "21:9",
+      "ratio_source": "stated in prompt",
+      "size_rule": null,
+      "key_color": null,
+      "key_hex": null,
+      "key_region": null,
+      "key_region_rationale": "no chroma key in prompt: the image is full-bleed artwork",
+      "continuation_of": "B1",
+      "step_title": "THE SKY",
+      "expected_filename": "B2.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/B2.png",
+      "approved_path": "docs/plans/assets/planet/approved/B2.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency B1 not approved (status: blocked)"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "B3",
+      "order": 2,
+      "step": "B",
+      "title": "Day sky, left half",
+      "derived_from": null,
+      "group_title": null,
+      "optional": false,
+      "source_line": 70,
+      "attach_line": "B1.png, style/day.png",
+      "attachments": [
+        {
+          "token": "B1.png",
+          "kind": "asset",
+          "id": "B1",
+          "path": "docs/plans/assets/planet/approved/B1.png"
+        },
+        {
+          "token": "style/day.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/day.png"
+        }
+      ],
+      "dependencies": [
+        "B1"
+      ],
+      "references": [
+        "docs/plans/assets/planet/style/day.png"
+      ],
+      "prompt": "Repaint the first attached sky panorama exactly as it is laid out, but in daylight, in the style of the second attached illustration: soft periwinkle blue at the top fading to warm peach near the bottom edge, the Milky Way band becoming faint lilac and violet painted wisps, only a few small pale stars and sparkles left. Same size, same composition, same paper grain. No planets, no moons, no clouds, no ground, no objects, no text.",
+      "prompt_sha256": "e2c0bc24f90ab50fad2fdfb06468f92a37d52254999ccc9e4b5bac89792dc207",
+      "ratio": null,
+      "ratio_source": "prompt asks for the same size as the first attachment (B1)",
+      "size_rule": {
+        "same_as": "B1"
+      },
+      "key_color": null,
+      "key_hex": null,
+      "key_region": null,
+      "key_region_rationale": "no chroma key in prompt: the image is full-bleed artwork",
+      "continuation_of": null,
+      "step_title": "THE SKY",
+      "expected_filename": "B3.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/B3.png",
+      "approved_path": "docs/plans/assets/planet/approved/B3.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency B1 not approved (status: blocked)",
+        "missing reference file docs/plans/assets/planet/style/day.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "B4",
+      "order": 3,
+      "step": "B",
+      "title": "Day sky, right half",
+      "derived_from": null,
+      "group_title": null,
+      "optional": false,
+      "source_line": 76,
+      "attach_line": "B2.png, B3.png",
+      "attachments": [
+        {
+          "token": "B2.png",
+          "kind": "asset",
+          "id": "B2",
+          "path": "docs/plans/assets/planet/approved/B2.png"
+        },
+        {
+          "token": "B3.png",
+          "kind": "asset",
+          "id": "B3",
+          "path": "docs/plans/assets/planet/approved/B3.png"
+        }
+      ],
+      "dependencies": [
+        "B2",
+        "B3"
+      ],
+      "references": [],
+      "prompt": "Repaint the first attached sky panorama exactly as it is laid out, but in daylight, matching the colours of the second attached image exactly: periwinkle at the top to warm peach at the bottom, faint lilac wisps, a few small pale stars. Same size, composition and paper grain. No planets, no moons, no clouds, no ground, no objects, no text.",
+      "prompt_sha256": "22c0bbf64e19fb1c0fc527b1b2ebbba4ab6ada699292d3d7ca2070865b5f0efe",
+      "ratio": null,
+      "ratio_source": "prompt asks for the same size as the first attachment (B2)",
+      "size_rule": {
+        "same_as": "B2"
+      },
+      "key_color": null,
+      "key_hex": null,
+      "key_region": null,
+      "key_region_rationale": "no chroma key in prompt: the image is full-bleed artwork",
+      "continuation_of": null,
+      "step_title": "THE SKY",
+      "expected_filename": "B4.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/B4.png",
+      "approved_path": "docs/plans/assets/planet/approved/B4.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency B2 not approved (status: blocked)",
+        "dependency B3 not approved (status: blocked)"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "B5",
+      "order": 4,
+      "step": "B",
+      "title": "Ringed planet and moons, night",
+      "derived_from": null,
+      "group_title": null,
+      "optional": false,
+      "source_line": 82,
+      "attach_line": "style/night.png",
+      "attachments": [
+        {
+          "token": "style/night.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/night.png"
+        }
+      ],
+      "dependencies": [],
+      "references": [
+        "docs/plans/assets/planet/style/night.png"
+      ],
+      "prompt": "In exactly the style of the attached illustration, paint three separate sky objects on a flat solid green (#00FF00) background, spaced well apart, not touching: (1) a large ringed planet like the one in the attached image, pale cream and lavender bands, its ring tilted, softly rim-lit in pale silver on its right side; (2) a medium round lilac moon with a few soft craters; (3) a small pale grey moon. Hand-painted gouache on paper, no black outlines, flat two-or-three-tone shading. The green background is perfectly flat with no texture, grain, shadow or glow. Wide 16:9. No text.",
+      "prompt_sha256": "4c59b4bc933357d9b59e0c5abd4f77cdbaee9e6b4a8a2e064abfca59fde3649c",
+      "ratio": "16:9",
+      "ratio_source": "stated in prompt",
+      "size_rule": null,
+      "key_color": "green",
+      "key_hex": "#00FF00",
+      "key_region": "all_edges",
+      "key_region_rationale": "separate objects or figures spaced apart on a flat key background",
+      "continuation_of": null,
+      "step_title": "THE SKY",
+      "expected_filename": "B5.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/B5.png",
+      "approved_path": "docs/plans/assets/planet/approved/B5.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "missing reference file docs/plans/assets/planet/style/night.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "B6",
+      "order": 5,
+      "step": "B",
+      "title": "Ringed planet and moons, day",
+      "derived_from": null,
+      "group_title": null,
+      "optional": false,
+      "source_line": 88,
+      "attach_line": "B5.png, style/day.png",
+      "attachments": [
+        {
+          "token": "B5.png",
+          "kind": "asset",
+          "id": "B5",
+          "path": "docs/plans/assets/planet/approved/B5.png"
+        },
+        {
+          "token": "style/day.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/day.png"
+        }
+      ],
+      "dependencies": [
+        "B5"
+      ],
+      "references": [
+        "docs/plans/assets/planet/style/day.png"
+      ],
+      "prompt": "Repaint the three objects in the first attached image exactly as they are (same shapes, sizes and positions) but lit in soft daylight, matching the second attached illustration: the ringed planet warm cream and butter-yellow with soft peach bands, the moons pale lilac and soft grey. Keep the background perfectly flat solid green (#00FF00). Same hand-painted style. No text.",
+      "prompt_sha256": "cc7000102ad0f01a67e01ae32dd91677fd19e7268ba29637ee8d2758d985a671",
+      "ratio": null,
+      "ratio_source": "prompt asks for the same size as the first attachment (B5)",
+      "size_rule": {
+        "same_as": "B5"
+      },
+      "key_color": "green",
+      "key_hex": "#00FF00",
+      "key_region": "all_edges",
+      "key_region_rationale": "separate objects or figures spaced apart on a flat key background",
+      "continuation_of": null,
+      "step_title": "THE SKY",
+      "expected_filename": "B6.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/B6.png",
+      "approved_path": "docs/plans/assets/planet/approved/B6.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency B5 not approved (status: blocked)",
+        "missing reference file docs/plans/assets/planet/style/day.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "B7",
+      "order": 6,
+      "step": "B",
+      "title": "Clouds, night",
+      "derived_from": null,
+      "group_title": null,
+      "optional": false,
+      "source_line": 94,
+      "attach_line": "style/night.png",
+      "attachments": [
+        {
+          "token": "style/night.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/night.png"
+        }
+      ],
+      "dependencies": [],
+      "references": [
+        "docs/plans/assets/planet/style/night.png"
+      ],
+      "prompt": "In exactly the style of the attached illustration, paint eight separate puffy clouds of different sizes and shapes (two large, three medium, three small), dusky lilac and slate-blue with soft peach-pink undersides, chunky, stepped, hand-cut edges, as in the attached image. Arrange them in a loose grid, well apart, NOT touching or overlapping. The background is perfectly flat solid green (#00FF00) with no texture, grain, shadow or gradient. Wide 16:9. No text.",
+      "prompt_sha256": "390dfb5e113962e87432086f3f6dc076821253c59a44278714e715d46d06b5c8",
+      "ratio": "16:9",
+      "ratio_source": "stated in prompt",
+      "size_rule": null,
+      "key_color": "green",
+      "key_hex": "#00FF00",
+      "key_region": "all_edges",
+      "key_region_rationale": "separate objects or figures spaced apart on a flat key background",
+      "continuation_of": null,
+      "step_title": "THE SKY",
+      "expected_filename": "B7.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/B7.png",
+      "approved_path": "docs/plans/assets/planet/approved/B7.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "missing reference file docs/plans/assets/planet/style/night.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "B8",
+      "order": 7,
+      "step": "B",
+      "title": "Clouds, day",
+      "derived_from": null,
+      "group_title": null,
+      "optional": false,
+      "source_line": 100,
+      "attach_line": "B7.png, style/day.png",
+      "attachments": [
+        {
+          "token": "B7.png",
+          "kind": "asset",
+          "id": "B7",
+          "path": "docs/plans/assets/planet/approved/B7.png"
+        },
+        {
+          "token": "style/day.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/day.png"
+        }
+      ],
+      "dependencies": [
+        "B7"
+      ],
+      "references": [
+        "docs/plans/assets/planet/style/day.png"
+      ],
+      "prompt": "Repaint the eight clouds in the first attached image exactly as they are (same shapes, sizes and positions) in daylight, matching the clouds in the second attached illustration: cream with soft peach and apricot undersides. Keep the background perfectly flat solid green (#00FF00). Same hand-painted style. No text.",
+      "prompt_sha256": "166123fcb9c60477627a459887d8192ba20116bb275b16102ae4fe37d96c36cf",
+      "ratio": null,
+      "ratio_source": "prompt asks for the same size as the first attachment (B7)",
+      "size_rule": {
+        "same_as": "B7"
+      },
+      "key_color": "green",
+      "key_hex": "#00FF00",
+      "key_region": "all_edges",
+      "key_region_rationale": "separate objects or figures spaced apart on a flat key background",
+      "continuation_of": null,
+      "step_title": "THE SKY",
+      "expected_filename": "B8.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/B8.png",
+      "approved_path": "docs/plans/assets/planet/approved/B8.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency B7 not approved (status: blocked)",
+        "missing reference file docs/plans/assets/planet/style/day.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "C1",
+      "order": 8,
+      "step": "C",
+      "title": "Far ridges, night, piece 1",
+      "derived_from": null,
+      "group_title": null,
+      "optional": false,
+      "source_line": 113,
+      "attach_line": "style/night.png",
+      "attachments": [
+        {
+          "token": "style/night.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/night.png"
+        }
+      ],
+      "dependencies": [],
+      "references": [
+        "docs/plans/assets/planet/style/night.png"
+      ],
+      "prompt": "In exactly the style of the attached illustration, paint ONLY a long strip of distant mountain ridges as a very wide 21:9 image: soft rolling peaks and a few tall thin rock spires, in hazy slate-blue and indigo, lighter and hazier toward the top of each peak, as in the background of the attached image. The ridges fill the lower half of the image, their base reaching the bottom edge. Everything above the ridges is perfectly flat solid magenta (#FF00FF), with no texture, grain, shadow or glow. No sky, no stars, no trees, no buildings, no text.",
+      "prompt_sha256": "376e33ea4e7ba6ae669f1cae4c636ddb2ae43596f28bb0dd7cd77ba579bcdfc6",
+      "ratio": "21:9",
+      "ratio_source": "stated in prompt",
+      "size_rule": null,
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top",
+      "key_region_rationale": "the strip reaches the bottom edge; everything above it is key colour",
+      "continuation_of": null,
+      "step_title": "FAR RIDGES AND HILLS  (three pieces each, joining left to right)",
+      "expected_filename": "C1.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/C1.png",
+      "approved_path": "docs/plans/assets/planet/approved/C1.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "checkpoint STOP-B8 not passed",
+        "missing reference file docs/plans/assets/planet/style/night.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "C2",
+      "order": 9,
+      "step": "C",
+      "title": "Far ridges, night, piece 2",
+      "derived_from": null,
+      "group_title": null,
+      "optional": false,
+      "source_line": 119,
+      "attach_line": "C1.png",
+      "attachments": [
+        {
+          "token": "C1.png",
+          "kind": "asset",
+          "id": "C1",
+          "path": "docs/plans/assets/planet/approved/C1.png"
+        }
+      ],
+      "dependencies": [
+        "C1"
+      ],
+      "references": [],
+      "prompt": "Continue the attached strip of mountain ridges to the right as a new very wide 21:9 image. The left quarter must repeat the right quarter of the attached image as closely as possible, then the ridges continue with new peaks and one cluster of tall rock spires. Same height, style and colours; base at the bottom edge; everything above the ridges perfectly flat solid magenta (#FF00FF). No sky, no trees, no text.",
+      "prompt_sha256": "51d6b4f63fb07f102b217eaee601922774957f43060f96a7b4c2394f791ba8ba",
+      "ratio": "21:9",
+      "ratio_source": "stated in prompt",
+      "size_rule": null,
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top",
+      "key_region_rationale": "the strip reaches the bottom edge; everything above it is key colour",
+      "continuation_of": "C1",
+      "step_title": "FAR RIDGES AND HILLS  (three pieces each, joining left to right)",
+      "expected_filename": "C2.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/C2.png",
+      "approved_path": "docs/plans/assets/planet/approved/C2.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency C1 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "C3",
+      "order": 10,
+      "step": "C",
+      "title": "Far ridges, night, piece 3",
+      "derived_from": null,
+      "group_title": null,
+      "optional": false,
+      "source_line": 125,
+      "attach_line": "C2.png",
+      "attachments": [
+        {
+          "token": "C2.png",
+          "kind": "asset",
+          "id": "C2",
+          "path": "docs/plans/assets/planet/approved/C2.png"
+        }
+      ],
+      "dependencies": [
+        "C2"
+      ],
+      "references": [],
+      "prompt": "Continue the attached strip of mountain ridges to the right as a new very wide 21:9 image. The left quarter must repeat the right quarter of the attached image as closely as possible, then the ridges continue with gentler, lower peaks. Same height, style and colours; base at the bottom edge; everything above the ridges perfectly flat solid magenta (#FF00FF). No sky, no trees, no text.",
+      "prompt_sha256": "53340260c8edbe89add94f73ae6162410ad6173c8aaa4967d76502f7a8375cc1",
+      "ratio": "21:9",
+      "ratio_source": "stated in prompt",
+      "size_rule": null,
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top",
+      "key_region_rationale": "the strip reaches the bottom edge; everything above it is key colour",
+      "continuation_of": "C2",
+      "step_title": "FAR RIDGES AND HILLS  (three pieces each, joining left to right)",
+      "expected_filename": "C3.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/C3.png",
+      "approved_path": "docs/plans/assets/planet/approved/C3.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency C2 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "C4",
+      "order": 11,
+      "step": "C",
+      "title": "Hills with trees, night, piece 1",
+      "derived_from": null,
+      "group_title": null,
+      "optional": false,
+      "source_line": 131,
+      "attach_line": "style/night.png",
+      "attachments": [
+        {
+          "token": "style/night.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/night.png"
+        }
+      ],
+      "dependencies": [],
+      "references": [
+        "docs/plans/assets/planet/style/night.png"
+      ],
+      "prompt": "In exactly the style of the attached illustration, paint ONLY a long strip of rolling hills with alien trees as a very wide 21:9 image: soft rounded hills in dark sage and blue-green, dotted with round alien trees (bulbous trunks, round puffball canopies in dark olive and moss), tall slender cypress-like trees, a few small round moon-rocks and tiny warm-yellow fireflies, as in the middle of the attached image. Night lighting, cool and calm. The hills fill the lower two-thirds of the image and reach the bottom edge. Everything above the hills and trees is perfectly flat solid magenta (#FF00FF), with no texture, grain, shadow or glow. No sky, no mountains, no buildings, no path, no text.",
+      "prompt_sha256": "9db0c58043edf43a9f1f3fe9d4344ec365ed74f1daa8a49ae6241235129ec995",
+      "ratio": "21:9",
+      "ratio_source": "stated in prompt",
+      "size_rule": null,
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top",
+      "key_region_rationale": "the strip reaches the bottom edge; everything above it is key colour",
+      "continuation_of": null,
+      "step_title": "FAR RIDGES AND HILLS  (three pieces each, joining left to right)",
+      "expected_filename": "C4.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/C4.png",
+      "approved_path": "docs/plans/assets/planet/approved/C4.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "checkpoint STOP-B8 not passed",
+        "missing reference file docs/plans/assets/planet/style/night.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "C5",
+      "order": 12,
+      "step": "C",
+      "title": "Hills with trees, night, piece 2",
+      "derived_from": null,
+      "group_title": null,
+      "optional": false,
+      "source_line": 137,
+      "attach_line": "C4.png",
+      "attachments": [
+        {
+          "token": "C4.png",
+          "kind": "asset",
+          "id": "C4",
+          "path": "docs/plans/assets/planet/approved/C4.png"
+        }
+      ],
+      "dependencies": [
+        "C4"
+      ],
+      "references": [],
+      "prompt": "Continue the attached strip of hills and alien trees to the right as a new very wide 21:9 image. The left quarter must repeat the right quarter of the attached image as closely as possible, then the hills continue with new trees in a different arrangement and a small grove of tall trees. Same height, style and colours; reaching the bottom edge; everything above perfectly flat solid magenta (#FF00FF). No sky, no buildings, no text.",
+      "prompt_sha256": "49ea8cccc0eac0d9d73aab91039c35566b528f2c9918855e670e8a7017ae9f4f",
+      "ratio": "21:9",
+      "ratio_source": "stated in prompt",
+      "size_rule": null,
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top",
+      "key_region_rationale": "the strip reaches the bottom edge; everything above it is key colour",
+      "continuation_of": "C4",
+      "step_title": "FAR RIDGES AND HILLS  (three pieces each, joining left to right)",
+      "expected_filename": "C5.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/C5.png",
+      "approved_path": "docs/plans/assets/planet/approved/C5.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency C4 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "C6",
+      "order": 13,
+      "step": "C",
+      "title": "Hills with trees, night, piece 3",
+      "derived_from": null,
+      "group_title": null,
+      "optional": false,
+      "source_line": 143,
+      "attach_line": "C5.png",
+      "attachments": [
+        {
+          "token": "C5.png",
+          "kind": "asset",
+          "id": "C5",
+          "path": "docs/plans/assets/planet/approved/C5.png"
+        }
+      ],
+      "dependencies": [
+        "C5"
+      ],
+      "references": [],
+      "prompt": "Continue the attached strip of hills and alien trees to the right as a new very wide 21:9 image. The left quarter must repeat the right quarter of the attached image as closely as possible, then the hills rise gently toward the right with a few more trees. Same height, style and colours; reaching the bottom edge; everything above perfectly flat solid magenta (#FF00FF). No sky, no buildings, no text.",
+      "prompt_sha256": "433ea96b582867e49ef2f8a50f468a2a6cdc8d919a8850089aa4d5b07e0e6b4e",
+      "ratio": "21:9",
+      "ratio_source": "stated in prompt",
+      "size_rule": null,
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top",
+      "key_region_rationale": "the strip reaches the bottom edge; everything above it is key colour",
+      "continuation_of": "C5",
+      "step_title": "FAR RIDGES AND HILLS  (three pieces each, joining left to right)",
+      "expected_filename": "C6.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/C6.png",
+      "approved_path": "docs/plans/assets/planet/approved/C6.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency C5 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "C7",
+      "order": 14,
+      "step": "C",
+      "title": "Day versions of C1 to C6 — C7 from C1",
+      "derived_from": "C1",
+      "group_title": "Day versions of C1 to C6",
+      "optional": false,
+      "source_line": 149,
+      "attach_line": "the night piece, and style/day.png",
+      "attachments": [
+        {
+          "token": "the night piece",
+          "kind": "asset",
+          "id": "C1",
+          "path": "docs/plans/assets/planet/approved/C1.png"
+        },
+        {
+          "token": "style/day.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/day.png"
+        }
+      ],
+      "dependencies": [
+        "C1"
+      ],
+      "references": [
+        "docs/plans/assets/planet/style/day.png"
+      ],
+      "prompt": "Repaint the first attached image exactly as it is (same shapes, same positions, same size) but in soft daylight, matching the colours of the second attached illustration: ridges in muted lavender-blue and lilac, hills in fresh sage and olive, tree canopies olive and mustard, no fireflies. Keep everything that is magenta perfectly flat solid magenta (#FF00FF). Same hand-painted style and paper grain. No text.",
+      "prompt_sha256": "53acebc3611db644d7cd65902f286137429a97ad68892d4abd06ad5aa6c288f8",
+      "ratio": null,
+      "ratio_source": "prompt asks for the same size as the first attachment (C1)",
+      "size_rule": {
+        "same_as": "C1"
+      },
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top",
+      "key_region_rationale": "the strip reaches the bottom edge; everything above it is key colour",
+      "continuation_of": null,
+      "step_title": "FAR RIDGES AND HILLS  (three pieces each, joining left to right)",
+      "expected_filename": "C7.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/C7.png",
+      "approved_path": "docs/plans/assets/planet/approved/C7.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency C1 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed",
+        "missing reference file docs/plans/assets/planet/style/day.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "C8",
+      "order": 15,
+      "step": "C",
+      "title": "Day versions of C1 to C6 — C8 from C2",
+      "derived_from": "C2",
+      "group_title": "Day versions of C1 to C6",
+      "optional": false,
+      "source_line": 149,
+      "attach_line": "the night piece, and style/day.png",
+      "attachments": [
+        {
+          "token": "the night piece",
+          "kind": "asset",
+          "id": "C2",
+          "path": "docs/plans/assets/planet/approved/C2.png"
+        },
+        {
+          "token": "style/day.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/day.png"
+        }
+      ],
+      "dependencies": [
+        "C2"
+      ],
+      "references": [
+        "docs/plans/assets/planet/style/day.png"
+      ],
+      "prompt": "Repaint the first attached image exactly as it is (same shapes, same positions, same size) but in soft daylight, matching the colours of the second attached illustration: ridges in muted lavender-blue and lilac, hills in fresh sage and olive, tree canopies olive and mustard, no fireflies. Keep everything that is magenta perfectly flat solid magenta (#FF00FF). Same hand-painted style and paper grain. No text.",
+      "prompt_sha256": "53acebc3611db644d7cd65902f286137429a97ad68892d4abd06ad5aa6c288f8",
+      "ratio": null,
+      "ratio_source": "prompt asks for the same size as the first attachment (C2)",
+      "size_rule": {
+        "same_as": "C2"
+      },
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top",
+      "key_region_rationale": "the strip reaches the bottom edge; everything above it is key colour",
+      "continuation_of": null,
+      "step_title": "FAR RIDGES AND HILLS  (three pieces each, joining left to right)",
+      "expected_filename": "C8.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/C8.png",
+      "approved_path": "docs/plans/assets/planet/approved/C8.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency C2 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed",
+        "missing reference file docs/plans/assets/planet/style/day.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "C9",
+      "order": 16,
+      "step": "C",
+      "title": "Day versions of C1 to C6 — C9 from C3",
+      "derived_from": "C3",
+      "group_title": "Day versions of C1 to C6",
+      "optional": false,
+      "source_line": 149,
+      "attach_line": "the night piece, and style/day.png",
+      "attachments": [
+        {
+          "token": "the night piece",
+          "kind": "asset",
+          "id": "C3",
+          "path": "docs/plans/assets/planet/approved/C3.png"
+        },
+        {
+          "token": "style/day.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/day.png"
+        }
+      ],
+      "dependencies": [
+        "C3"
+      ],
+      "references": [
+        "docs/plans/assets/planet/style/day.png"
+      ],
+      "prompt": "Repaint the first attached image exactly as it is (same shapes, same positions, same size) but in soft daylight, matching the colours of the second attached illustration: ridges in muted lavender-blue and lilac, hills in fresh sage and olive, tree canopies olive and mustard, no fireflies. Keep everything that is magenta perfectly flat solid magenta (#FF00FF). Same hand-painted style and paper grain. No text.",
+      "prompt_sha256": "53acebc3611db644d7cd65902f286137429a97ad68892d4abd06ad5aa6c288f8",
+      "ratio": null,
+      "ratio_source": "prompt asks for the same size as the first attachment (C3)",
+      "size_rule": {
+        "same_as": "C3"
+      },
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top",
+      "key_region_rationale": "the strip reaches the bottom edge; everything above it is key colour",
+      "continuation_of": null,
+      "step_title": "FAR RIDGES AND HILLS  (three pieces each, joining left to right)",
+      "expected_filename": "C9.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/C9.png",
+      "approved_path": "docs/plans/assets/planet/approved/C9.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency C3 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed",
+        "missing reference file docs/plans/assets/planet/style/day.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "C10",
+      "order": 17,
+      "step": "C",
+      "title": "Day versions of C1 to C6 — C10 from C4",
+      "derived_from": "C4",
+      "group_title": "Day versions of C1 to C6",
+      "optional": false,
+      "source_line": 149,
+      "attach_line": "the night piece, and style/day.png",
+      "attachments": [
+        {
+          "token": "the night piece",
+          "kind": "asset",
+          "id": "C4",
+          "path": "docs/plans/assets/planet/approved/C4.png"
+        },
+        {
+          "token": "style/day.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/day.png"
+        }
+      ],
+      "dependencies": [
+        "C4"
+      ],
+      "references": [
+        "docs/plans/assets/planet/style/day.png"
+      ],
+      "prompt": "Repaint the first attached image exactly as it is (same shapes, same positions, same size) but in soft daylight, matching the colours of the second attached illustration: ridges in muted lavender-blue and lilac, hills in fresh sage and olive, tree canopies olive and mustard, no fireflies. Keep everything that is magenta perfectly flat solid magenta (#FF00FF). Same hand-painted style and paper grain. No text.",
+      "prompt_sha256": "53acebc3611db644d7cd65902f286137429a97ad68892d4abd06ad5aa6c288f8",
+      "ratio": null,
+      "ratio_source": "prompt asks for the same size as the first attachment (C4)",
+      "size_rule": {
+        "same_as": "C4"
+      },
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top",
+      "key_region_rationale": "the strip reaches the bottom edge; everything above it is key colour",
+      "continuation_of": null,
+      "step_title": "FAR RIDGES AND HILLS  (three pieces each, joining left to right)",
+      "expected_filename": "C10.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/C10.png",
+      "approved_path": "docs/plans/assets/planet/approved/C10.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency C4 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed",
+        "missing reference file docs/plans/assets/planet/style/day.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "C11",
+      "order": 18,
+      "step": "C",
+      "title": "Day versions of C1 to C6 — C11 from C5",
+      "derived_from": "C5",
+      "group_title": "Day versions of C1 to C6",
+      "optional": false,
+      "source_line": 149,
+      "attach_line": "the night piece, and style/day.png",
+      "attachments": [
+        {
+          "token": "the night piece",
+          "kind": "asset",
+          "id": "C5",
+          "path": "docs/plans/assets/planet/approved/C5.png"
+        },
+        {
+          "token": "style/day.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/day.png"
+        }
+      ],
+      "dependencies": [
+        "C5"
+      ],
+      "references": [
+        "docs/plans/assets/planet/style/day.png"
+      ],
+      "prompt": "Repaint the first attached image exactly as it is (same shapes, same positions, same size) but in soft daylight, matching the colours of the second attached illustration: ridges in muted lavender-blue and lilac, hills in fresh sage and olive, tree canopies olive and mustard, no fireflies. Keep everything that is magenta perfectly flat solid magenta (#FF00FF). Same hand-painted style and paper grain. No text.",
+      "prompt_sha256": "53acebc3611db644d7cd65902f286137429a97ad68892d4abd06ad5aa6c288f8",
+      "ratio": null,
+      "ratio_source": "prompt asks for the same size as the first attachment (C5)",
+      "size_rule": {
+        "same_as": "C5"
+      },
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top",
+      "key_region_rationale": "the strip reaches the bottom edge; everything above it is key colour",
+      "continuation_of": null,
+      "step_title": "FAR RIDGES AND HILLS  (three pieces each, joining left to right)",
+      "expected_filename": "C11.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/C11.png",
+      "approved_path": "docs/plans/assets/planet/approved/C11.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency C5 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed",
+        "missing reference file docs/plans/assets/planet/style/day.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "C12",
+      "order": 19,
+      "step": "C",
+      "title": "Day versions of C1 to C6 — C12 from C6",
+      "derived_from": "C6",
+      "group_title": "Day versions of C1 to C6",
+      "optional": false,
+      "source_line": 149,
+      "attach_line": "the night piece, and style/day.png",
+      "attachments": [
+        {
+          "token": "the night piece",
+          "kind": "asset",
+          "id": "C6",
+          "path": "docs/plans/assets/planet/approved/C6.png"
+        },
+        {
+          "token": "style/day.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/day.png"
+        }
+      ],
+      "dependencies": [
+        "C6"
+      ],
+      "references": [
+        "docs/plans/assets/planet/style/day.png"
+      ],
+      "prompt": "Repaint the first attached image exactly as it is (same shapes, same positions, same size) but in soft daylight, matching the colours of the second attached illustration: ridges in muted lavender-blue and lilac, hills in fresh sage and olive, tree canopies olive and mustard, no fireflies. Keep everything that is magenta perfectly flat solid magenta (#FF00FF). Same hand-painted style and paper grain. No text.",
+      "prompt_sha256": "53acebc3611db644d7cd65902f286137429a97ad68892d4abd06ad5aa6c288f8",
+      "ratio": null,
+      "ratio_source": "prompt asks for the same size as the first attachment (C6)",
+      "size_rule": {
+        "same_as": "C6"
+      },
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top",
+      "key_region_rationale": "the strip reaches the bottom edge; everything above it is key colour",
+      "continuation_of": null,
+      "step_title": "FAR RIDGES AND HILLS  (three pieces each, joining left to right)",
+      "expected_filename": "C12.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/C12.png",
+      "approved_path": "docs/plans/assets/planet/approved/C12.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency C6 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed",
+        "missing reference file docs/plans/assets/planet/style/day.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "D1",
+      "order": 20,
+      "step": "D",
+      "title": "Path, night, piece 1",
+      "derived_from": null,
+      "group_title": null,
+      "optional": false,
+      "source_line": 163,
+      "attach_line": "style/night.png",
+      "attachments": [
+        {
+          "token": "style/night.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/night.png"
+        }
+      ],
+      "dependencies": [],
+      "references": [
+        "docs/plans/assets/planet/style/night.png"
+      ],
+      "prompt": "In exactly the style of the attached illustration, paint ONLY a long flat strip of ground as a very wide 21:9 image: at the back a thin edge of dark sage grass with a few small shrubs and pale glowing flowers, then a wide warm sandy-terracotta path running straight across the whole width, lit softly in places by warm light, with small pebbles and a few footprints. The ground occupies the bottom 40% of the image, its back edge a gently uneven line of grass. Everything above is perfectly flat solid magenta (#FF00FF), with no texture, grain, shadow or glow. No fence, no buildings, no lamps, no trees, no sky, no text.",
+      "prompt_sha256": "8ecc5bd46a0d0b4a445a2ca6e16d212ef7108017745bf06ef7d791fdf9b665f7",
+      "ratio": "21:9",
+      "ratio_source": "stated in prompt",
+      "size_rule": null,
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top",
+      "key_region_rationale": "the strip reaches the bottom edge; everything above it is key colour",
+      "continuation_of": null,
+      "step_title": "THE GROUND",
+      "expected_filename": "D1.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/D1.png",
+      "approved_path": "docs/plans/assets/planet/approved/D1.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "missing reference file docs/plans/assets/planet/style/night.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "D2",
+      "order": 21,
+      "step": "D",
+      "title": "Path, night, piece 2",
+      "derived_from": null,
+      "group_title": null,
+      "optional": false,
+      "source_line": 169,
+      "attach_line": "D1.png",
+      "attachments": [
+        {
+          "token": "D1.png",
+          "kind": "asset",
+          "id": "D1",
+          "path": "docs/plans/assets/planet/approved/D1.png"
+        }
+      ],
+      "dependencies": [
+        "D1"
+      ],
+      "references": [],
+      "prompt": "Continue the attached strip of ground to the right as a new very wide 21:9 image. The left quarter must repeat the right quarter of the attached image as closely as possible, then the grass edge and the sandy path continue with small variations. Same height, style and colours; everything above perfectly flat solid magenta (#FF00FF). No fence, no buildings, no lamps, no text.",
+      "prompt_sha256": "9f06a3a2e60854712d528c996e3832caf4cafa48143d7ac692bf67571c27916a",
+      "ratio": "21:9",
+      "ratio_source": "stated in prompt",
+      "size_rule": null,
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top",
+      "key_region_rationale": "the strip reaches the bottom edge; everything above it is key colour",
+      "continuation_of": "D1",
+      "step_title": "THE GROUND",
+      "expected_filename": "D2.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/D2.png",
+      "approved_path": "docs/plans/assets/planet/approved/D2.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency D1 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "D3",
+      "order": 22,
+      "step": "D",
+      "title": "Path, night, piece 3",
+      "derived_from": null,
+      "group_title": null,
+      "optional": false,
+      "source_line": 170,
+      "attach_line": "D2.png",
+      "attachments": [
+        {
+          "token": "D2.png",
+          "kind": "asset",
+          "id": "D2",
+          "path": "docs/plans/assets/planet/approved/D2.png"
+        }
+      ],
+      "dependencies": [
+        "D2"
+      ],
+      "references": [],
+      "prompt": "Continue the attached strip of ground to the right as a new very wide 21:9 image. The left quarter must repeat the right quarter of the attached image as closely as possible, then the grass edge and the sandy path continue with small variations. Same height, style and colours; everything above perfectly flat solid magenta (#FF00FF). No fence, no buildings, no lamps, no text.",
+      "prompt_sha256": "9f06a3a2e60854712d528c996e3832caf4cafa48143d7ac692bf67571c27916a",
+      "ratio": "21:9",
+      "ratio_source": "stated in prompt",
+      "size_rule": null,
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top",
+      "key_region_rationale": "the strip reaches the bottom edge; everything above it is key colour",
+      "continuation_of": "D2",
+      "step_title": "THE GROUND",
+      "expected_filename": "D3.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/D3.png",
+      "approved_path": "docs/plans/assets/planet/approved/D3.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency D2 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "D4",
+      "order": 23,
+      "step": "D",
+      "title": "Foreground, night, piece 1",
+      "derived_from": null,
+      "group_title": null,
+      "optional": false,
+      "source_line": 175,
+      "attach_line": "style/night.png",
+      "attachments": [
+        {
+          "token": "style/night.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/night.png"
+        }
+      ],
+      "dependencies": [],
+      "references": [
+        "docs/plans/assets/planet/style/night.png"
+      ],
+      "prompt": "In exactly the style of the attached illustration, paint ONLY the foreground strip as a very wide 21:9 image, like the bottom of the attached image: a dense row of sage and dark-green alien shrubs and leafy plants, round grey-lilac moon-rocks with craters, small plants with glowing pale-blue bulb flowers, a few warm-yellow fireflies, and below them a cut-away of rich brown soil with roots and small stones down to the bottom edge. The strip fills the bottom third of the image. Everything above the plants is perfectly flat solid magenta (#FF00FF), with no texture, grain, shadow or glow. No path, no buildings, no sky, no text.",
+      "prompt_sha256": "9e0d7968a8df39260ccbaa960d1e41e2f4a35f5d72e0c55f68037bf9339a0bd6",
+      "ratio": "21:9",
+      "ratio_source": "stated in prompt",
+      "size_rule": null,
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top",
+      "key_region_rationale": "the strip reaches the bottom edge; everything above it is key colour",
+      "continuation_of": null,
+      "step_title": "THE GROUND",
+      "expected_filename": "D4.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/D4.png",
+      "approved_path": "docs/plans/assets/planet/approved/D4.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "missing reference file docs/plans/assets/planet/style/night.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "D5",
+      "order": 24,
+      "step": "D",
+      "title": "Foreground, night, piece 2",
+      "derived_from": null,
+      "group_title": null,
+      "optional": false,
+      "source_line": 181,
+      "attach_line": "D4.png",
+      "attachments": [
+        {
+          "token": "D4.png",
+          "kind": "asset",
+          "id": "D4",
+          "path": "docs/plans/assets/planet/approved/D4.png"
+        }
+      ],
+      "dependencies": [
+        "D4"
+      ],
+      "references": [],
+      "prompt": "Continue the attached foreground strip to the right as a new very wide 21:9 image. The left quarter must repeat the right quarter of the attached image as closely as possible, then the shrubs, moon-rocks, glowing flowers and soil continue with a different arrangement. Same height, style and colours; everything above perfectly flat solid magenta (#FF00FF). No text.",
+      "prompt_sha256": "a09713fb3b06e1c8c81fb05bf32e56fd9881298bb480be20ed4a94e8a714bd95",
+      "ratio": "21:9",
+      "ratio_source": "stated in prompt",
+      "size_rule": null,
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top",
+      "key_region_rationale": "the strip reaches the bottom edge; everything above it is key colour",
+      "continuation_of": "D4",
+      "step_title": "THE GROUND",
+      "expected_filename": "D5.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/D5.png",
+      "approved_path": "docs/plans/assets/planet/approved/D5.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency D4 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "D6",
+      "order": 25,
+      "step": "D",
+      "title": "Day versions of D1 to D5 — D6 from D1",
+      "derived_from": "D1",
+      "group_title": "Day versions of D1 to D5",
+      "optional": false,
+      "source_line": 186,
+      "attach_line": "the night piece, and style/day.png",
+      "attachments": [
+        {
+          "token": "the night piece",
+          "kind": "asset",
+          "id": "D1",
+          "path": "docs/plans/assets/planet/approved/D1.png"
+        },
+        {
+          "token": "style/day.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/day.png"
+        }
+      ],
+      "dependencies": [
+        "D1"
+      ],
+      "references": [
+        "docs/plans/assets/planet/style/day.png"
+      ],
+      "prompt": "Repaint the first attached image exactly as it is (same shapes, same positions, same size) but in soft daylight, matching the colours of the second attached illustration: fresh sage and olive greens, the path warm sand and terracotta, the moon-rocks soft grey, the bulb flowers pale cream, no glow and no fireflies. Keep everything that is magenta perfectly flat solid magenta (#FF00FF). Same hand-painted style and paper grain. No text.",
+      "prompt_sha256": "efa229ec0b6c77a7fdd3b17322a51b910c9faa0fa4b0ec98c8c6f653f122cd32",
+      "ratio": null,
+      "ratio_source": "prompt asks for the same size as the first attachment (D1)",
+      "size_rule": {
+        "same_as": "D1"
+      },
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top",
+      "key_region_rationale": "the strip reaches the bottom edge; everything above it is key colour",
+      "continuation_of": null,
+      "step_title": "THE GROUND",
+      "expected_filename": "D6.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/D6.png",
+      "approved_path": "docs/plans/assets/planet/approved/D6.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency D1 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "missing reference file docs/plans/assets/planet/style/day.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "D7",
+      "order": 26,
+      "step": "D",
+      "title": "Day versions of D1 to D5 — D7 from D2",
+      "derived_from": "D2",
+      "group_title": "Day versions of D1 to D5",
+      "optional": false,
+      "source_line": 186,
+      "attach_line": "the night piece, and style/day.png",
+      "attachments": [
+        {
+          "token": "the night piece",
+          "kind": "asset",
+          "id": "D2",
+          "path": "docs/plans/assets/planet/approved/D2.png"
+        },
+        {
+          "token": "style/day.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/day.png"
+        }
+      ],
+      "dependencies": [
+        "D2"
+      ],
+      "references": [
+        "docs/plans/assets/planet/style/day.png"
+      ],
+      "prompt": "Repaint the first attached image exactly as it is (same shapes, same positions, same size) but in soft daylight, matching the colours of the second attached illustration: fresh sage and olive greens, the path warm sand and terracotta, the moon-rocks soft grey, the bulb flowers pale cream, no glow and no fireflies. Keep everything that is magenta perfectly flat solid magenta (#FF00FF). Same hand-painted style and paper grain. No text.",
+      "prompt_sha256": "efa229ec0b6c77a7fdd3b17322a51b910c9faa0fa4b0ec98c8c6f653f122cd32",
+      "ratio": null,
+      "ratio_source": "prompt asks for the same size as the first attachment (D2)",
+      "size_rule": {
+        "same_as": "D2"
+      },
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top",
+      "key_region_rationale": "the strip reaches the bottom edge; everything above it is key colour",
+      "continuation_of": null,
+      "step_title": "THE GROUND",
+      "expected_filename": "D7.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/D7.png",
+      "approved_path": "docs/plans/assets/planet/approved/D7.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency D2 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "missing reference file docs/plans/assets/planet/style/day.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "D8",
+      "order": 27,
+      "step": "D",
+      "title": "Day versions of D1 to D5 — D8 from D3",
+      "derived_from": "D3",
+      "group_title": "Day versions of D1 to D5",
+      "optional": false,
+      "source_line": 186,
+      "attach_line": "the night piece, and style/day.png",
+      "attachments": [
+        {
+          "token": "the night piece",
+          "kind": "asset",
+          "id": "D3",
+          "path": "docs/plans/assets/planet/approved/D3.png"
+        },
+        {
+          "token": "style/day.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/day.png"
+        }
+      ],
+      "dependencies": [
+        "D3"
+      ],
+      "references": [
+        "docs/plans/assets/planet/style/day.png"
+      ],
+      "prompt": "Repaint the first attached image exactly as it is (same shapes, same positions, same size) but in soft daylight, matching the colours of the second attached illustration: fresh sage and olive greens, the path warm sand and terracotta, the moon-rocks soft grey, the bulb flowers pale cream, no glow and no fireflies. Keep everything that is magenta perfectly flat solid magenta (#FF00FF). Same hand-painted style and paper grain. No text.",
+      "prompt_sha256": "efa229ec0b6c77a7fdd3b17322a51b910c9faa0fa4b0ec98c8c6f653f122cd32",
+      "ratio": null,
+      "ratio_source": "prompt asks for the same size as the first attachment (D3)",
+      "size_rule": {
+        "same_as": "D3"
+      },
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top",
+      "key_region_rationale": "the strip reaches the bottom edge; everything above it is key colour",
+      "continuation_of": null,
+      "step_title": "THE GROUND",
+      "expected_filename": "D8.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/D8.png",
+      "approved_path": "docs/plans/assets/planet/approved/D8.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency D3 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "missing reference file docs/plans/assets/planet/style/day.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "D9",
+      "order": 28,
+      "step": "D",
+      "title": "Day versions of D1 to D5 — D9 from D4",
+      "derived_from": "D4",
+      "group_title": "Day versions of D1 to D5",
+      "optional": false,
+      "source_line": 186,
+      "attach_line": "the night piece, and style/day.png",
+      "attachments": [
+        {
+          "token": "the night piece",
+          "kind": "asset",
+          "id": "D4",
+          "path": "docs/plans/assets/planet/approved/D4.png"
+        },
+        {
+          "token": "style/day.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/day.png"
+        }
+      ],
+      "dependencies": [
+        "D4"
+      ],
+      "references": [
+        "docs/plans/assets/planet/style/day.png"
+      ],
+      "prompt": "Repaint the first attached image exactly as it is (same shapes, same positions, same size) but in soft daylight, matching the colours of the second attached illustration: fresh sage and olive greens, the path warm sand and terracotta, the moon-rocks soft grey, the bulb flowers pale cream, no glow and no fireflies. Keep everything that is magenta perfectly flat solid magenta (#FF00FF). Same hand-painted style and paper grain. No text.",
+      "prompt_sha256": "efa229ec0b6c77a7fdd3b17322a51b910c9faa0fa4b0ec98c8c6f653f122cd32",
+      "ratio": null,
+      "ratio_source": "prompt asks for the same size as the first attachment (D4)",
+      "size_rule": {
+        "same_as": "D4"
+      },
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top",
+      "key_region_rationale": "the strip reaches the bottom edge; everything above it is key colour",
+      "continuation_of": null,
+      "step_title": "THE GROUND",
+      "expected_filename": "D9.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/D9.png",
+      "approved_path": "docs/plans/assets/planet/approved/D9.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency D4 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "missing reference file docs/plans/assets/planet/style/day.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "D10",
+      "order": 29,
+      "step": "D",
+      "title": "Day versions of D1 to D5 — D10 from D5",
+      "derived_from": "D5",
+      "group_title": "Day versions of D1 to D5",
+      "optional": false,
+      "source_line": 186,
+      "attach_line": "the night piece, and style/day.png",
+      "attachments": [
+        {
+          "token": "the night piece",
+          "kind": "asset",
+          "id": "D5",
+          "path": "docs/plans/assets/planet/approved/D5.png"
+        },
+        {
+          "token": "style/day.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/day.png"
+        }
+      ],
+      "dependencies": [
+        "D5"
+      ],
+      "references": [
+        "docs/plans/assets/planet/style/day.png"
+      ],
+      "prompt": "Repaint the first attached image exactly as it is (same shapes, same positions, same size) but in soft daylight, matching the colours of the second attached illustration: fresh sage and olive greens, the path warm sand and terracotta, the moon-rocks soft grey, the bulb flowers pale cream, no glow and no fireflies. Keep everything that is magenta perfectly flat solid magenta (#FF00FF). Same hand-painted style and paper grain. No text.",
+      "prompt_sha256": "efa229ec0b6c77a7fdd3b17322a51b910c9faa0fa4b0ec98c8c6f653f122cd32",
+      "ratio": null,
+      "ratio_source": "prompt asks for the same size as the first attachment (D5)",
+      "size_rule": {
+        "same_as": "D5"
+      },
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top",
+      "key_region_rationale": "the strip reaches the bottom edge; everything above it is key colour",
+      "continuation_of": null,
+      "step_title": "THE GROUND",
+      "expected_filename": "D10.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/D10.png",
+      "approved_path": "docs/plans/assets/planet/approved/D10.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency D5 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "missing reference file docs/plans/assets/planet/style/day.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "E1",
+      "order": 30,
+      "step": "E",
+      "title": "Lander and landing pad, night",
+      "derived_from": null,
+      "group_title": null,
+      "optional": false,
+      "source_line": 204,
+      "attach_line": "style/night.png",
+      "attachments": [
+        {
+          "token": "style/night.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/night.png"
+        }
+      ],
+      "dependencies": [],
+      "references": [
+        "docs/plans/assets/planet/style/night.png"
+      ],
+      "prompt": "From the attached illustration, take ONLY the lander and its landing pad on the left, exactly as they look (same design, colours and style), and complete any hidden parts: a round cream-and-terracotta metal lander on three piston legs, a glowing teal ring around its porthole, its hatch open with warm light inside, a metal ramp down to a round stone landing pad with small glowing teal guide lights around its edge. Wide 16:9, the lander large and centred. Side view, almost no perspective, the pad standing on a short strip of sandy path at the bottom edge. Everything else is perfectly flat solid magenta (#FF00FF), with no texture, grain, shadow or glow. Exactly the style of the attached illustration: hand-painted storybook gouache on paper, paper grain, no black outlines, flat two-or-three-tone shading, cozy little sci-fi. No people, no text, no letters, no numbers, no logos.",
+      "prompt_sha256": "5bfbef0b0d08b292d9c3eab3589fc74f7dc17d38acbcb23182aacb13877ddf59",
+      "ratio": "16:9",
+      "ratio_source": "stated in prompt",
+      "size_rule": null,
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top_and_upper_sides",
+      "key_region_rationale": "the building stands on a strip of path at the bottom edge; everything else is key colour",
+      "continuation_of": null,
+      "step_title": "THE BUILDINGS",
+      "expected_filename": "E1.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/E1.png",
+      "approved_path": "docs/plans/assets/planet/approved/E1.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "checkpoint STOP-D10 not passed",
+        "missing reference file docs/plans/assets/planet/style/night.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "E2",
+      "order": 31,
+      "step": "E",
+      "title": "Trading dome (OPINEX), night, door closed",
+      "derived_from": null,
+      "group_title": null,
+      "optional": false,
+      "source_line": 210,
+      "attach_line": "style/night.png",
+      "attachments": [
+        {
+          "token": "style/night.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/night.png"
+        }
+      ],
+      "dependencies": [],
+      "references": [
+        "docs/plans/assets/planet/style/night.png"
+      ],
+      "prompt": "In exactly the style of the attached illustration, paint one small sci-fi market dome, a little bigger than the dome in the attached image: a dome of cream metal panels with seams and rivets, a striped terracotta-and-cream fabric awning over a market counter on its front, two small glowing teal screens beside the counter showing only simple rising and falling line charts (no numbers), small crates of goods stacked by the counter, a round sliding hatch door with a porthole (closed), a thin teal light strip around the base, a small dish and a slim antenna with a warm light on top, a hanging lantern glowing warm yellow. Wide 16:9, the building large and centred. Side view, almost no perspective, the building standing on a short strip of sandy path at the bottom edge. Everything else is perfectly flat solid magenta (#FF00FF), with no texture, grain, shadow or glow. Exactly the style of the attached illustration: hand-painted storybook gouache on paper, paper grain, no black outlines, flat two-or-three-tone shading, cozy little sci-fi. No people, no text, no letters, no numbers, no logos.",
+      "prompt_sha256": "307a8a6b1b2312fc7530e7dd0c661aa1e6137ed86c37b9153fc4409929687b5a",
+      "ratio": "16:9",
+      "ratio_source": "stated in prompt",
+      "size_rule": null,
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top_and_upper_sides",
+      "key_region_rationale": "the building stands on a strip of path at the bottom edge; everything else is key colour",
+      "continuation_of": null,
+      "step_title": "THE BUILDINGS",
+      "expected_filename": "E2.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/E2.png",
+      "approved_path": "docs/plans/assets/planet/approved/E2.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "checkpoint STOP-D10 not passed",
+        "missing reference file docs/plans/assets/planet/style/night.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "E3",
+      "order": 32,
+      "step": "E",
+      "title": "Compliance lab (EzyComp), night, door closed",
+      "derived_from": null,
+      "group_title": null,
+      "optional": false,
+      "source_line": 216,
+      "attach_line": "style/night.png",
+      "attachments": [
+        {
+          "token": "style/night.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/night.png"
+        }
+      ],
+      "dependencies": [],
+      "references": [
+        "docs/plans/assets/planet/style/night.png"
+      ],
+      "prompt": "In exactly the style of the attached illustration, paint one small sci-fi compliance lab: a neat boxy two-storey module of cream metal panels with rounded corners, a wide window on the upper floor showing rows of tidy filing racks and folders lit warm inside, a large round emblem on its wall shaped like a shield with a check mark (no letters), a small terminal with a glowing teal screen and a clipboard holder beside the door, a sliding hatch door with a porthole (closed), a thin teal light strip under the roof edge, two small solar panels and a short antenna on the roof, a warm-yellow lamp by the door. Wide 16:9, the building large and centred. Side view, almost no perspective, the building standing on a short strip of sandy path at the bottom edge. Everything else is perfectly flat solid magenta (#FF00FF), with no texture, grain, shadow or glow. Exactly the style of the attached illustration: hand-painted storybook gouache on paper, paper grain, no black outlines, flat two-or-three-tone shading, cozy little sci-fi. No people, no text, no letters, no numbers, no logos.",
+      "prompt_sha256": "ea8b96f8f3215c2462e352fa40f9812724b08705bc699f218709c839ba3277a9",
+      "ratio": "16:9",
+      "ratio_source": "stated in prompt",
+      "size_rule": null,
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top_and_upper_sides",
+      "key_region_rationale": "the building stands on a strip of path at the bottom edge; everything else is key colour",
+      "continuation_of": null,
+      "step_title": "THE BUILDINGS",
+      "expected_filename": "E3.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/E3.png",
+      "approved_path": "docs/plans/assets/planet/approved/E3.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "checkpoint STOP-D10 not passed",
+        "missing reference file docs/plans/assets/planet/style/night.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "E4",
+      "order": 33,
+      "step": "E",
+      "title": "Academy hut (iDev certificates), night, door closed",
+      "derived_from": null,
+      "group_title": null,
+      "optional": false,
+      "source_line": 222,
+      "attach_line": "style/night.png",
+      "attachments": [
+        {
+          "token": "style/night.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/night.png"
+        }
+      ],
+      "dependencies": [],
+      "references": [
+        "docs/plans/assets/planet/style/night.png"
+      ],
+      "prompt": "In exactly the style of the attached illustration, paint one small sci-fi academy hut: a rounded capsule-shaped hut of cream metal panels with a terracotta roof cap, a round window lit warm inside showing a small classroom desk, and on its side a big friendly certificate-printing machine with dials and a glowing teal panel, feeding out a long ribbon of blank cream certificate paper with a small round terracotta seal on each sheet, the ribbon curling into a basket. A sliding hatch door with a porthole (closed), a teal light strip around the base, a short antenna with a small star-shaped light on top, a warm lamp by the door. Wide 16:9, the building large and centred. Side view, almost no perspective, the building standing on a short strip of sandy path at the bottom edge. Everything else is perfectly flat solid magenta (#FF00FF), with no texture, grain, shadow or glow. Exactly the style of the attached illustration: hand-painted storybook gouache on paper, paper grain, no black outlines, flat two-or-three-tone shading, cozy little sci-fi. No people, no text, no letters, no numbers, no logos.",
+      "prompt_sha256": "d348c9a3000a427426a4cc57e60562c5b06b712e02017fa2b7c030d09b08f335",
+      "ratio": "16:9",
+      "ratio_source": "stated in prompt",
+      "size_rule": null,
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top_and_upper_sides",
+      "key_region_rationale": "the building stands on a strip of path at the bottom edge; everything else is key colour",
+      "continuation_of": null,
+      "step_title": "THE BUILDINGS",
+      "expected_filename": "E4.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/E4.png",
+      "approved_path": "docs/plans/assets/planet/approved/E4.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "checkpoint STOP-D10 not passed",
+        "missing reference file docs/plans/assets/planet/style/night.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "E5",
+      "order": 34,
+      "step": "E",
+      "title": "Supply depot (InvoicePal), night, door closed",
+      "derived_from": null,
+      "group_title": null,
+      "optional": false,
+      "source_line": 228,
+      "attach_line": "style/night.png",
+      "attachments": [
+        {
+          "token": "style/night.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/night.png"
+        }
+      ],
+      "dependencies": [],
+      "references": [
+        "docs/plans/assets/planet/style/night.png"
+      ],
+      "prompt": "In exactly the style of the attached illustration, paint one small sci-fi supply depot: a low half-cylinder hangar of cream ribbed metal with a terracotta stripe, a wide roller door (closed) with a small porthole door beside it, neat stacks of crates and parcels with simple terracotta straps outside, a little round delivery drone docked on a pad on the roof with a blinking light, a small kiosk window with a glowing teal ledger screen showing only simple horizontal lines (no numbers) and a short paper receipt curling out of a slot, a warm lamp over the door, a teal light strip along the base. Wide 16:9, the building large and centred. Side view, almost no perspective, the building standing on a short strip of sandy path at the bottom edge. Everything else is perfectly flat solid magenta (#FF00FF), with no texture, grain, shadow or glow. Exactly the style of the attached illustration: hand-painted storybook gouache on paper, paper grain, no black outlines, flat two-or-three-tone shading, cozy little sci-fi. No people, no text, no letters, no numbers, no logos.",
+      "prompt_sha256": "9cf121d1cbfdb74aeb8a0e156ccc2219d2f7ae09c9844c9c1eee5c350aa72f75",
+      "ratio": "16:9",
+      "ratio_source": "stated in prompt",
+      "size_rule": null,
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top_and_upper_sides",
+      "key_region_rationale": "the building stands on a strip of path at the bottom edge; everything else is key colour",
+      "continuation_of": null,
+      "step_title": "THE BUILDINGS",
+      "expected_filename": "E5.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/E5.png",
+      "approved_path": "docs/plans/assets/planet/approved/E5.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "checkpoint STOP-D10 not passed",
+        "missing reference file docs/plans/assets/planet/style/night.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "E6",
+      "order": 35,
+      "step": "E",
+      "title": "Construction site (Jombay design system, coming soon), night",
+      "derived_from": null,
+      "group_title": null,
+      "optional": false,
+      "source_line": 234,
+      "attach_line": "style/night.png",
+      "attachments": [
+        {
+          "token": "style/night.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/night.png"
+        }
+      ],
+      "dependencies": [],
+      "references": [
+        "docs/plans/assets/planet/style/night.png"
+      ],
+      "prompt": "In exactly the style of the attached illustration, paint one small sci-fi construction site: a half-built module wrapped in simple wooden-and-metal scaffolding, its walls made of neat square modular panels in cream, sage and terracotta, some panels already fitted like tidy tiles and others stacked on the ground waiting, a small yellow crane arm lifting one square panel, a slowly turning orange beacon light glowing on top, two little traffic cones and a work lamp casting warm light. Wide 16:9, the site large and centred. Side view, almost no perspective, standing on a short strip of sandy path at the bottom edge. Everything else is perfectly flat solid magenta (#FF00FF), with no texture, grain, shadow or glow. Exactly the style of the attached illustration: hand-painted storybook gouache on paper, paper grain, no black outlines, flat two-or-three-tone shading, cozy little sci-fi. No people, no text, no letters, no numbers, no logos.",
+      "prompt_sha256": "f62bc25d0124ea145096610ae6696661c77034061d15db635eb1ed97e9e0378f",
+      "ratio": "16:9",
+      "ratio_source": "stated in prompt",
+      "size_rule": null,
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top_and_upper_sides",
+      "key_region_rationale": "the building stands on a strip of path at the bottom edge; everything else is key colour",
+      "continuation_of": null,
+      "step_title": "THE BUILDINGS",
+      "expected_filename": "E6.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/E6.png",
+      "approved_path": "docs/plans/assets/planet/approved/E6.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "checkpoint STOP-D10 not passed",
+        "missing reference file docs/plans/assets/planet/style/night.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "E7",
+      "order": 36,
+      "step": "E",
+      "title": "Your observatory (home), night, door closed",
+      "derived_from": null,
+      "group_title": null,
+      "optional": false,
+      "source_line": 240,
+      "attach_line": "style/night.png",
+      "attachments": [
+        {
+          "token": "style/night.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/night.png"
+        }
+      ],
+      "dependencies": [],
+      "references": [
+        "docs/plans/assets/planet/style/night.png"
+      ],
+      "prompt": "In exactly the style of the attached illustration, paint one sci-fi observatory, clearly the biggest and most special building of the village: a tall round tower of cream metal panels with rivets and a ring of round porthole windows glowing warm, topped by a large silver-white dome with its slit open and the tube of a brass-and-cream telescope pointing out at the sky, a thin railing walkway around the base of the dome, a round sliding hatch door with a porthole (closed) and a warm lamp above it, a small garden of glowing pale-blue flowers and a little bench by the door, string lights in warm yellow along the railing, a tall slim antenna with a blinking red tip, a teal light strip around the base. Tall 3:4 image, the observatory large and centred. Side view, almost no perspective, standing on a short strip of sandy path at the bottom edge. Everything else is perfectly flat solid magenta (#FF00FF), with no texture, grain, shadow or glow. Exactly the style of the attached illustration: hand-painted storybook gouache on paper, paper grain, no black outlines, flat two-or-three-tone shading, cozy little sci-fi. No people, no text, no letters, no numbers, no logos.",
+      "prompt_sha256": "cf420247cb521e3cd8c8d3cfc6bfe855a42c36ca909056de17000a324ed5fc77",
+      "ratio": "3:4",
+      "ratio_source": "stated in prompt",
+      "size_rule": null,
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top_and_upper_sides",
+      "key_region_rationale": "the building stands on a strip of path at the bottom edge; everything else is key colour",
+      "continuation_of": null,
+      "step_title": "THE BUILDINGS",
+      "expected_filename": "E7.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/E7.png",
+      "approved_path": "docs/plans/assets/planet/approved/E7.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "checkpoint STOP-D10 not passed",
+        "missing reference file docs/plans/assets/planet/style/night.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "E8",
+      "order": 37,
+      "step": "E",
+      "title": "Door open (night) — E8 from E2",
+      "derived_from": "E2",
+      "group_title": "Door open (night)",
+      "optional": false,
+      "source_line": 248,
+      "attach_line": "the closed-door version",
+      "attachments": [
+        {
+          "token": "the closed-door version",
+          "kind": "asset",
+          "id": "E2",
+          "path": "docs/plans/assets/planet/approved/E2.png"
+        }
+      ],
+      "dependencies": [
+        "E2"
+      ],
+      "references": [],
+      "prompt": "Repaint the attached building exactly as it is (same everything, same size and position), with only one change: its door is now open (the hatch slid aside into the wall, or the roller door rolled up), showing a warm golden-lit interior just inside the doorway, and a soft warm pool of light falling onto the sandy path in front of the door. Keep the background perfectly flat solid magenta (#FF00FF). Same style. No people, no text.",
+      "prompt_sha256": "b29de7e9949d68b4252f7b72f51c65210f5c01b045f16325bb9a1a002059e6bb",
+      "ratio": null,
+      "ratio_source": "prompt asks for the same size as the first attachment (E2)",
+      "size_rule": {
+        "same_as": "E2"
+      },
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top_and_upper_sides",
+      "key_region_rationale": "the building stands on a strip of path at the bottom edge; everything else is key colour",
+      "continuation_of": null,
+      "step_title": "THE BUILDINGS",
+      "expected_filename": "E8.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/E8.png",
+      "approved_path": "docs/plans/assets/planet/approved/E8.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency E2 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "checkpoint STOP-D10 not passed",
+        "checkpoint STOP-E7 not passed"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "E9",
+      "order": 38,
+      "step": "E",
+      "title": "Door open (night) — E9 from E3",
+      "derived_from": "E3",
+      "group_title": "Door open (night)",
+      "optional": false,
+      "source_line": 248,
+      "attach_line": "the closed-door version",
+      "attachments": [
+        {
+          "token": "the closed-door version",
+          "kind": "asset",
+          "id": "E3",
+          "path": "docs/plans/assets/planet/approved/E3.png"
+        }
+      ],
+      "dependencies": [
+        "E3"
+      ],
+      "references": [],
+      "prompt": "Repaint the attached building exactly as it is (same everything, same size and position), with only one change: its door is now open (the hatch slid aside into the wall, or the roller door rolled up), showing a warm golden-lit interior just inside the doorway, and a soft warm pool of light falling onto the sandy path in front of the door. Keep the background perfectly flat solid magenta (#FF00FF). Same style. No people, no text.",
+      "prompt_sha256": "b29de7e9949d68b4252f7b72f51c65210f5c01b045f16325bb9a1a002059e6bb",
+      "ratio": null,
+      "ratio_source": "prompt asks for the same size as the first attachment (E3)",
+      "size_rule": {
+        "same_as": "E3"
+      },
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top_and_upper_sides",
+      "key_region_rationale": "the building stands on a strip of path at the bottom edge; everything else is key colour",
+      "continuation_of": null,
+      "step_title": "THE BUILDINGS",
+      "expected_filename": "E9.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/E9.png",
+      "approved_path": "docs/plans/assets/planet/approved/E9.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency E3 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "checkpoint STOP-D10 not passed",
+        "checkpoint STOP-E7 not passed"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "E10",
+      "order": 39,
+      "step": "E",
+      "title": "Door open (night) — E10 from E4",
+      "derived_from": "E4",
+      "group_title": "Door open (night)",
+      "optional": false,
+      "source_line": 248,
+      "attach_line": "the closed-door version",
+      "attachments": [
+        {
+          "token": "the closed-door version",
+          "kind": "asset",
+          "id": "E4",
+          "path": "docs/plans/assets/planet/approved/E4.png"
+        }
+      ],
+      "dependencies": [
+        "E4"
+      ],
+      "references": [],
+      "prompt": "Repaint the attached building exactly as it is (same everything, same size and position), with only one change: its door is now open (the hatch slid aside into the wall, or the roller door rolled up), showing a warm golden-lit interior just inside the doorway, and a soft warm pool of light falling onto the sandy path in front of the door. Keep the background perfectly flat solid magenta (#FF00FF). Same style. No people, no text.",
+      "prompt_sha256": "b29de7e9949d68b4252f7b72f51c65210f5c01b045f16325bb9a1a002059e6bb",
+      "ratio": null,
+      "ratio_source": "prompt asks for the same size as the first attachment (E4)",
+      "size_rule": {
+        "same_as": "E4"
+      },
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top_and_upper_sides",
+      "key_region_rationale": "the building stands on a strip of path at the bottom edge; everything else is key colour",
+      "continuation_of": null,
+      "step_title": "THE BUILDINGS",
+      "expected_filename": "E10.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/E10.png",
+      "approved_path": "docs/plans/assets/planet/approved/E10.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency E4 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "checkpoint STOP-D10 not passed",
+        "checkpoint STOP-E7 not passed"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "E11",
+      "order": 40,
+      "step": "E",
+      "title": "Door open (night) — E11 from E5",
+      "derived_from": "E5",
+      "group_title": "Door open (night)",
+      "optional": false,
+      "source_line": 248,
+      "attach_line": "the closed-door version",
+      "attachments": [
+        {
+          "token": "the closed-door version",
+          "kind": "asset",
+          "id": "E5",
+          "path": "docs/plans/assets/planet/approved/E5.png"
+        }
+      ],
+      "dependencies": [
+        "E5"
+      ],
+      "references": [],
+      "prompt": "Repaint the attached building exactly as it is (same everything, same size and position), with only one change: its door is now open (the hatch slid aside into the wall, or the roller door rolled up), showing a warm golden-lit interior just inside the doorway, and a soft warm pool of light falling onto the sandy path in front of the door. Keep the background perfectly flat solid magenta (#FF00FF). Same style. No people, no text.",
+      "prompt_sha256": "b29de7e9949d68b4252f7b72f51c65210f5c01b045f16325bb9a1a002059e6bb",
+      "ratio": null,
+      "ratio_source": "prompt asks for the same size as the first attachment (E5)",
+      "size_rule": {
+        "same_as": "E5"
+      },
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top_and_upper_sides",
+      "key_region_rationale": "the building stands on a strip of path at the bottom edge; everything else is key colour",
+      "continuation_of": null,
+      "step_title": "THE BUILDINGS",
+      "expected_filename": "E11.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/E11.png",
+      "approved_path": "docs/plans/assets/planet/approved/E11.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency E5 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "checkpoint STOP-D10 not passed",
+        "checkpoint STOP-E7 not passed"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "E12",
+      "order": 41,
+      "step": "E",
+      "title": "Door open (night) — E12 from E7",
+      "derived_from": "E7",
+      "group_title": "Door open (night)",
+      "optional": false,
+      "source_line": 248,
+      "attach_line": "the closed-door version",
+      "attachments": [
+        {
+          "token": "the closed-door version",
+          "kind": "asset",
+          "id": "E7",
+          "path": "docs/plans/assets/planet/approved/E7.png"
+        }
+      ],
+      "dependencies": [
+        "E7"
+      ],
+      "references": [],
+      "prompt": "Repaint the attached building exactly as it is (same everything, same size and position), with only one change: its door is now open (the hatch slid aside into the wall, or the roller door rolled up), showing a warm golden-lit interior just inside the doorway, and a soft warm pool of light falling onto the sandy path in front of the door. Keep the background perfectly flat solid magenta (#FF00FF). Same style. No people, no text.",
+      "prompt_sha256": "b29de7e9949d68b4252f7b72f51c65210f5c01b045f16325bb9a1a002059e6bb",
+      "ratio": null,
+      "ratio_source": "prompt asks for the same size as the first attachment (E7)",
+      "size_rule": {
+        "same_as": "E7"
+      },
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top_and_upper_sides",
+      "key_region_rationale": "the building stands on a strip of path at the bottom edge; everything else is key colour",
+      "continuation_of": null,
+      "step_title": "THE BUILDINGS",
+      "expected_filename": "E12.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/E12.png",
+      "approved_path": "docs/plans/assets/planet/approved/E12.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency E7 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "checkpoint STOP-D10 not passed",
+        "checkpoint STOP-E7 not passed"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "E13",
+      "order": 42,
+      "step": "E",
+      "title": "Day versions — E13 from E1",
+      "derived_from": "E1",
+      "group_title": "Day versions",
+      "optional": false,
+      "source_line": 255,
+      "attach_line": "the night version, and style/day.png",
+      "attachments": [
+        {
+          "token": "the night version",
+          "kind": "asset",
+          "id": "E1",
+          "path": "docs/plans/assets/planet/approved/E1.png"
+        },
+        {
+          "token": "style/day.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/day.png"
+        }
+      ],
+      "dependencies": [
+        "E1"
+      ],
+      "references": [
+        "docs/plans/assets/planet/style/day.png"
+      ],
+      "prompt": "Repaint the first attached building exactly as it is (same shapes, positions and size) in soft daylight, matching the colours and light of the second attached illustration: warm cream panels, terracotta, sage, soft shadows; lamps and windows switched off or only faintly lit; teal strips dim. If the door is open, the inside stays softly lit. Keep the background perfectly flat solid magenta (#FF00FF). Same hand-painted style and paper grain. No people, no text.",
+      "prompt_sha256": "57f70194841448fd0eeb159475ab7f4abda2536794c5b851e93f4ec400b43fba",
+      "ratio": null,
+      "ratio_source": "prompt asks for the same size as the first attachment (E1)",
+      "size_rule": {
+        "same_as": "E1"
+      },
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top_and_upper_sides",
+      "key_region_rationale": "the building stands on a strip of path at the bottom edge; everything else is key colour",
+      "continuation_of": null,
+      "step_title": "THE BUILDINGS",
+      "expected_filename": "E13.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/E13.png",
+      "approved_path": "docs/plans/assets/planet/approved/E13.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency E1 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "checkpoint STOP-D10 not passed",
+        "checkpoint STOP-E7 not passed",
+        "missing reference file docs/plans/assets/planet/style/day.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "E14",
+      "order": 43,
+      "step": "E",
+      "title": "Day versions — E14 from E2",
+      "derived_from": "E2",
+      "group_title": "Day versions",
+      "optional": false,
+      "source_line": 255,
+      "attach_line": "the night version, and style/day.png",
+      "attachments": [
+        {
+          "token": "the night version",
+          "kind": "asset",
+          "id": "E2",
+          "path": "docs/plans/assets/planet/approved/E2.png"
+        },
+        {
+          "token": "style/day.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/day.png"
+        }
+      ],
+      "dependencies": [
+        "E2"
+      ],
+      "references": [
+        "docs/plans/assets/planet/style/day.png"
+      ],
+      "prompt": "Repaint the first attached building exactly as it is (same shapes, positions and size) in soft daylight, matching the colours and light of the second attached illustration: warm cream panels, terracotta, sage, soft shadows; lamps and windows switched off or only faintly lit; teal strips dim. If the door is open, the inside stays softly lit. Keep the background perfectly flat solid magenta (#FF00FF). Same hand-painted style and paper grain. No people, no text.",
+      "prompt_sha256": "57f70194841448fd0eeb159475ab7f4abda2536794c5b851e93f4ec400b43fba",
+      "ratio": null,
+      "ratio_source": "prompt asks for the same size as the first attachment (E2)",
+      "size_rule": {
+        "same_as": "E2"
+      },
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top_and_upper_sides",
+      "key_region_rationale": "the building stands on a strip of path at the bottom edge; everything else is key colour",
+      "continuation_of": null,
+      "step_title": "THE BUILDINGS",
+      "expected_filename": "E14.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/E14.png",
+      "approved_path": "docs/plans/assets/planet/approved/E14.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency E2 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "checkpoint STOP-D10 not passed",
+        "checkpoint STOP-E7 not passed",
+        "missing reference file docs/plans/assets/planet/style/day.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "E15",
+      "order": 44,
+      "step": "E",
+      "title": "Day versions — E15 from E3",
+      "derived_from": "E3",
+      "group_title": "Day versions",
+      "optional": false,
+      "source_line": 255,
+      "attach_line": "the night version, and style/day.png",
+      "attachments": [
+        {
+          "token": "the night version",
+          "kind": "asset",
+          "id": "E3",
+          "path": "docs/plans/assets/planet/approved/E3.png"
+        },
+        {
+          "token": "style/day.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/day.png"
+        }
+      ],
+      "dependencies": [
+        "E3"
+      ],
+      "references": [
+        "docs/plans/assets/planet/style/day.png"
+      ],
+      "prompt": "Repaint the first attached building exactly as it is (same shapes, positions and size) in soft daylight, matching the colours and light of the second attached illustration: warm cream panels, terracotta, sage, soft shadows; lamps and windows switched off or only faintly lit; teal strips dim. If the door is open, the inside stays softly lit. Keep the background perfectly flat solid magenta (#FF00FF). Same hand-painted style and paper grain. No people, no text.",
+      "prompt_sha256": "57f70194841448fd0eeb159475ab7f4abda2536794c5b851e93f4ec400b43fba",
+      "ratio": null,
+      "ratio_source": "prompt asks for the same size as the first attachment (E3)",
+      "size_rule": {
+        "same_as": "E3"
+      },
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top_and_upper_sides",
+      "key_region_rationale": "the building stands on a strip of path at the bottom edge; everything else is key colour",
+      "continuation_of": null,
+      "step_title": "THE BUILDINGS",
+      "expected_filename": "E15.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/E15.png",
+      "approved_path": "docs/plans/assets/planet/approved/E15.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency E3 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "checkpoint STOP-D10 not passed",
+        "checkpoint STOP-E7 not passed",
+        "missing reference file docs/plans/assets/planet/style/day.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "E16",
+      "order": 45,
+      "step": "E",
+      "title": "Day versions — E16 from E4",
+      "derived_from": "E4",
+      "group_title": "Day versions",
+      "optional": false,
+      "source_line": 255,
+      "attach_line": "the night version, and style/day.png",
+      "attachments": [
+        {
+          "token": "the night version",
+          "kind": "asset",
+          "id": "E4",
+          "path": "docs/plans/assets/planet/approved/E4.png"
+        },
+        {
+          "token": "style/day.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/day.png"
+        }
+      ],
+      "dependencies": [
+        "E4"
+      ],
+      "references": [
+        "docs/plans/assets/planet/style/day.png"
+      ],
+      "prompt": "Repaint the first attached building exactly as it is (same shapes, positions and size) in soft daylight, matching the colours and light of the second attached illustration: warm cream panels, terracotta, sage, soft shadows; lamps and windows switched off or only faintly lit; teal strips dim. If the door is open, the inside stays softly lit. Keep the background perfectly flat solid magenta (#FF00FF). Same hand-painted style and paper grain. No people, no text.",
+      "prompt_sha256": "57f70194841448fd0eeb159475ab7f4abda2536794c5b851e93f4ec400b43fba",
+      "ratio": null,
+      "ratio_source": "prompt asks for the same size as the first attachment (E4)",
+      "size_rule": {
+        "same_as": "E4"
+      },
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top_and_upper_sides",
+      "key_region_rationale": "the building stands on a strip of path at the bottom edge; everything else is key colour",
+      "continuation_of": null,
+      "step_title": "THE BUILDINGS",
+      "expected_filename": "E16.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/E16.png",
+      "approved_path": "docs/plans/assets/planet/approved/E16.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency E4 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "checkpoint STOP-D10 not passed",
+        "checkpoint STOP-E7 not passed",
+        "missing reference file docs/plans/assets/planet/style/day.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "E17",
+      "order": 46,
+      "step": "E",
+      "title": "Day versions — E17 from E5",
+      "derived_from": "E5",
+      "group_title": "Day versions",
+      "optional": false,
+      "source_line": 255,
+      "attach_line": "the night version, and style/day.png",
+      "attachments": [
+        {
+          "token": "the night version",
+          "kind": "asset",
+          "id": "E5",
+          "path": "docs/plans/assets/planet/approved/E5.png"
+        },
+        {
+          "token": "style/day.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/day.png"
+        }
+      ],
+      "dependencies": [
+        "E5"
+      ],
+      "references": [
+        "docs/plans/assets/planet/style/day.png"
+      ],
+      "prompt": "Repaint the first attached building exactly as it is (same shapes, positions and size) in soft daylight, matching the colours and light of the second attached illustration: warm cream panels, terracotta, sage, soft shadows; lamps and windows switched off or only faintly lit; teal strips dim. If the door is open, the inside stays softly lit. Keep the background perfectly flat solid magenta (#FF00FF). Same hand-painted style and paper grain. No people, no text.",
+      "prompt_sha256": "57f70194841448fd0eeb159475ab7f4abda2536794c5b851e93f4ec400b43fba",
+      "ratio": null,
+      "ratio_source": "prompt asks for the same size as the first attachment (E5)",
+      "size_rule": {
+        "same_as": "E5"
+      },
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top_and_upper_sides",
+      "key_region_rationale": "the building stands on a strip of path at the bottom edge; everything else is key colour",
+      "continuation_of": null,
+      "step_title": "THE BUILDINGS",
+      "expected_filename": "E17.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/E17.png",
+      "approved_path": "docs/plans/assets/planet/approved/E17.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency E5 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "checkpoint STOP-D10 not passed",
+        "checkpoint STOP-E7 not passed",
+        "missing reference file docs/plans/assets/planet/style/day.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "E18",
+      "order": 47,
+      "step": "E",
+      "title": "Day versions — E18 from E6",
+      "derived_from": "E6",
+      "group_title": "Day versions",
+      "optional": false,
+      "source_line": 255,
+      "attach_line": "the night version, and style/day.png",
+      "attachments": [
+        {
+          "token": "the night version",
+          "kind": "asset",
+          "id": "E6",
+          "path": "docs/plans/assets/planet/approved/E6.png"
+        },
+        {
+          "token": "style/day.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/day.png"
+        }
+      ],
+      "dependencies": [
+        "E6"
+      ],
+      "references": [
+        "docs/plans/assets/planet/style/day.png"
+      ],
+      "prompt": "Repaint the first attached building exactly as it is (same shapes, positions and size) in soft daylight, matching the colours and light of the second attached illustration: warm cream panels, terracotta, sage, soft shadows; lamps and windows switched off or only faintly lit; teal strips dim. If the door is open, the inside stays softly lit. Keep the background perfectly flat solid magenta (#FF00FF). Same hand-painted style and paper grain. No people, no text.",
+      "prompt_sha256": "57f70194841448fd0eeb159475ab7f4abda2536794c5b851e93f4ec400b43fba",
+      "ratio": null,
+      "ratio_source": "prompt asks for the same size as the first attachment (E6)",
+      "size_rule": {
+        "same_as": "E6"
+      },
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top_and_upper_sides",
+      "key_region_rationale": "the building stands on a strip of path at the bottom edge; everything else is key colour",
+      "continuation_of": null,
+      "step_title": "THE BUILDINGS",
+      "expected_filename": "E18.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/E18.png",
+      "approved_path": "docs/plans/assets/planet/approved/E18.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency E6 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "checkpoint STOP-D10 not passed",
+        "checkpoint STOP-E7 not passed",
+        "missing reference file docs/plans/assets/planet/style/day.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "E19",
+      "order": 48,
+      "step": "E",
+      "title": "Day versions — E19 from E7",
+      "derived_from": "E7",
+      "group_title": "Day versions",
+      "optional": false,
+      "source_line": 255,
+      "attach_line": "the night version, and style/day.png",
+      "attachments": [
+        {
+          "token": "the night version",
+          "kind": "asset",
+          "id": "E7",
+          "path": "docs/plans/assets/planet/approved/E7.png"
+        },
+        {
+          "token": "style/day.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/day.png"
+        }
+      ],
+      "dependencies": [
+        "E7"
+      ],
+      "references": [
+        "docs/plans/assets/planet/style/day.png"
+      ],
+      "prompt": "Repaint the first attached building exactly as it is (same shapes, positions and size) in soft daylight, matching the colours and light of the second attached illustration: warm cream panels, terracotta, sage, soft shadows; lamps and windows switched off or only faintly lit; teal strips dim. If the door is open, the inside stays softly lit. Keep the background perfectly flat solid magenta (#FF00FF). Same hand-painted style and paper grain. No people, no text.",
+      "prompt_sha256": "57f70194841448fd0eeb159475ab7f4abda2536794c5b851e93f4ec400b43fba",
+      "ratio": null,
+      "ratio_source": "prompt asks for the same size as the first attachment (E7)",
+      "size_rule": {
+        "same_as": "E7"
+      },
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top_and_upper_sides",
+      "key_region_rationale": "the building stands on a strip of path at the bottom edge; everything else is key colour",
+      "continuation_of": null,
+      "step_title": "THE BUILDINGS",
+      "expected_filename": "E19.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/E19.png",
+      "approved_path": "docs/plans/assets/planet/approved/E19.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency E7 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "checkpoint STOP-D10 not passed",
+        "checkpoint STOP-E7 not passed",
+        "missing reference file docs/plans/assets/planet/style/day.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "E20",
+      "order": 49,
+      "step": "E",
+      "title": "Day versions — E20 from E8",
+      "derived_from": "E8",
+      "group_title": "Day versions",
+      "optional": false,
+      "source_line": 255,
+      "attach_line": "the night version, and style/day.png",
+      "attachments": [
+        {
+          "token": "the night version",
+          "kind": "asset",
+          "id": "E8",
+          "path": "docs/plans/assets/planet/approved/E8.png"
+        },
+        {
+          "token": "style/day.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/day.png"
+        }
+      ],
+      "dependencies": [
+        "E8"
+      ],
+      "references": [
+        "docs/plans/assets/planet/style/day.png"
+      ],
+      "prompt": "Repaint the first attached building exactly as it is (same shapes, positions and size) in soft daylight, matching the colours and light of the second attached illustration: warm cream panels, terracotta, sage, soft shadows; lamps and windows switched off or only faintly lit; teal strips dim. If the door is open, the inside stays softly lit. Keep the background perfectly flat solid magenta (#FF00FF). Same hand-painted style and paper grain. No people, no text.",
+      "prompt_sha256": "57f70194841448fd0eeb159475ab7f4abda2536794c5b851e93f4ec400b43fba",
+      "ratio": null,
+      "ratio_source": "prompt asks for the same size as the first attachment (E8)",
+      "size_rule": {
+        "same_as": "E8"
+      },
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top_and_upper_sides",
+      "key_region_rationale": "the building stands on a strip of path at the bottom edge; everything else is key colour",
+      "continuation_of": null,
+      "step_title": "THE BUILDINGS",
+      "expected_filename": "E20.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/E20.png",
+      "approved_path": "docs/plans/assets/planet/approved/E20.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency E8 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "checkpoint STOP-D10 not passed",
+        "checkpoint STOP-E7 not passed",
+        "missing reference file docs/plans/assets/planet/style/day.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "E21",
+      "order": 50,
+      "step": "E",
+      "title": "Day versions — E21 from E9",
+      "derived_from": "E9",
+      "group_title": "Day versions",
+      "optional": false,
+      "source_line": 255,
+      "attach_line": "the night version, and style/day.png",
+      "attachments": [
+        {
+          "token": "the night version",
+          "kind": "asset",
+          "id": "E9",
+          "path": "docs/plans/assets/planet/approved/E9.png"
+        },
+        {
+          "token": "style/day.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/day.png"
+        }
+      ],
+      "dependencies": [
+        "E9"
+      ],
+      "references": [
+        "docs/plans/assets/planet/style/day.png"
+      ],
+      "prompt": "Repaint the first attached building exactly as it is (same shapes, positions and size) in soft daylight, matching the colours and light of the second attached illustration: warm cream panels, terracotta, sage, soft shadows; lamps and windows switched off or only faintly lit; teal strips dim. If the door is open, the inside stays softly lit. Keep the background perfectly flat solid magenta (#FF00FF). Same hand-painted style and paper grain. No people, no text.",
+      "prompt_sha256": "57f70194841448fd0eeb159475ab7f4abda2536794c5b851e93f4ec400b43fba",
+      "ratio": null,
+      "ratio_source": "prompt asks for the same size as the first attachment (E9)",
+      "size_rule": {
+        "same_as": "E9"
+      },
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top_and_upper_sides",
+      "key_region_rationale": "the building stands on a strip of path at the bottom edge; everything else is key colour",
+      "continuation_of": null,
+      "step_title": "THE BUILDINGS",
+      "expected_filename": "E21.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/E21.png",
+      "approved_path": "docs/plans/assets/planet/approved/E21.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency E9 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "checkpoint STOP-D10 not passed",
+        "checkpoint STOP-E7 not passed",
+        "missing reference file docs/plans/assets/planet/style/day.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "E22",
+      "order": 51,
+      "step": "E",
+      "title": "Day versions — E22 from E10",
+      "derived_from": "E10",
+      "group_title": "Day versions",
+      "optional": false,
+      "source_line": 255,
+      "attach_line": "the night version, and style/day.png",
+      "attachments": [
+        {
+          "token": "the night version",
+          "kind": "asset",
+          "id": "E10",
+          "path": "docs/plans/assets/planet/approved/E10.png"
+        },
+        {
+          "token": "style/day.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/day.png"
+        }
+      ],
+      "dependencies": [
+        "E10"
+      ],
+      "references": [
+        "docs/plans/assets/planet/style/day.png"
+      ],
+      "prompt": "Repaint the first attached building exactly as it is (same shapes, positions and size) in soft daylight, matching the colours and light of the second attached illustration: warm cream panels, terracotta, sage, soft shadows; lamps and windows switched off or only faintly lit; teal strips dim. If the door is open, the inside stays softly lit. Keep the background perfectly flat solid magenta (#FF00FF). Same hand-painted style and paper grain. No people, no text.",
+      "prompt_sha256": "57f70194841448fd0eeb159475ab7f4abda2536794c5b851e93f4ec400b43fba",
+      "ratio": null,
+      "ratio_source": "prompt asks for the same size as the first attachment (E10)",
+      "size_rule": {
+        "same_as": "E10"
+      },
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top_and_upper_sides",
+      "key_region_rationale": "the building stands on a strip of path at the bottom edge; everything else is key colour",
+      "continuation_of": null,
+      "step_title": "THE BUILDINGS",
+      "expected_filename": "E22.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/E22.png",
+      "approved_path": "docs/plans/assets/planet/approved/E22.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency E10 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "checkpoint STOP-D10 not passed",
+        "checkpoint STOP-E7 not passed",
+        "missing reference file docs/plans/assets/planet/style/day.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "E23",
+      "order": 52,
+      "step": "E",
+      "title": "Day versions — E23 from E11",
+      "derived_from": "E11",
+      "group_title": "Day versions",
+      "optional": false,
+      "source_line": 255,
+      "attach_line": "the night version, and style/day.png",
+      "attachments": [
+        {
+          "token": "the night version",
+          "kind": "asset",
+          "id": "E11",
+          "path": "docs/plans/assets/planet/approved/E11.png"
+        },
+        {
+          "token": "style/day.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/day.png"
+        }
+      ],
+      "dependencies": [
+        "E11"
+      ],
+      "references": [
+        "docs/plans/assets/planet/style/day.png"
+      ],
+      "prompt": "Repaint the first attached building exactly as it is (same shapes, positions and size) in soft daylight, matching the colours and light of the second attached illustration: warm cream panels, terracotta, sage, soft shadows; lamps and windows switched off or only faintly lit; teal strips dim. If the door is open, the inside stays softly lit. Keep the background perfectly flat solid magenta (#FF00FF). Same hand-painted style and paper grain. No people, no text.",
+      "prompt_sha256": "57f70194841448fd0eeb159475ab7f4abda2536794c5b851e93f4ec400b43fba",
+      "ratio": null,
+      "ratio_source": "prompt asks for the same size as the first attachment (E11)",
+      "size_rule": {
+        "same_as": "E11"
+      },
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top_and_upper_sides",
+      "key_region_rationale": "the building stands on a strip of path at the bottom edge; everything else is key colour",
+      "continuation_of": null,
+      "step_title": "THE BUILDINGS",
+      "expected_filename": "E23.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/E23.png",
+      "approved_path": "docs/plans/assets/planet/approved/E23.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency E11 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "checkpoint STOP-D10 not passed",
+        "checkpoint STOP-E7 not passed",
+        "missing reference file docs/plans/assets/planet/style/day.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "E24",
+      "order": 53,
+      "step": "E",
+      "title": "Day versions — E24 from E12",
+      "derived_from": "E12",
+      "group_title": "Day versions",
+      "optional": false,
+      "source_line": 255,
+      "attach_line": "the night version, and style/day.png",
+      "attachments": [
+        {
+          "token": "the night version",
+          "kind": "asset",
+          "id": "E12",
+          "path": "docs/plans/assets/planet/approved/E12.png"
+        },
+        {
+          "token": "style/day.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/day.png"
+        }
+      ],
+      "dependencies": [
+        "E12"
+      ],
+      "references": [
+        "docs/plans/assets/planet/style/day.png"
+      ],
+      "prompt": "Repaint the first attached building exactly as it is (same shapes, positions and size) in soft daylight, matching the colours and light of the second attached illustration: warm cream panels, terracotta, sage, soft shadows; lamps and windows switched off or only faintly lit; teal strips dim. If the door is open, the inside stays softly lit. Keep the background perfectly flat solid magenta (#FF00FF). Same hand-painted style and paper grain. No people, no text.",
+      "prompt_sha256": "57f70194841448fd0eeb159475ab7f4abda2536794c5b851e93f4ec400b43fba",
+      "ratio": null,
+      "ratio_source": "prompt asks for the same size as the first attachment (E12)",
+      "size_rule": {
+        "same_as": "E12"
+      },
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "top_and_upper_sides",
+      "key_region_rationale": "the building stands on a strip of path at the bottom edge; everything else is key colour",
+      "continuation_of": null,
+      "step_title": "THE BUILDINGS",
+      "expected_filename": "E24.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/E24.png",
+      "approved_path": "docs/plans/assets/planet/approved/E24.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency E12 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "checkpoint STOP-D10 not passed",
+        "checkpoint STOP-E7 not passed",
+        "missing reference file docs/plans/assets/planet/style/day.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "F1",
+      "order": 54,
+      "step": "F",
+      "title": "Props sheet, night",
+      "derived_from": null,
+      "group_title": null,
+      "optional": false,
+      "source_line": 268,
+      "attach_line": "style/night.png",
+      "attachments": [
+        {
+          "token": "style/night.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/night.png"
+        }
+      ],
+      "dependencies": [],
+      "references": [
+        "docs/plans/assets/planet/style/night.png"
+      ],
+      "prompt": "In exactly the style of the attached illustration, paint these separate objects on a flat solid magenta (#FF00FF) background, spaced well apart, not touching, all in side view and to the same scale as the attached scene: (1) a slim metal lamp post with a glowing round warm-yellow lamp orb; (2) a straight section of low metal-rail fence with three posts, each post with a small glowing teal cap; (3) a single fence post on its own; (4) a blank metal-framed sign panel on two posts with a soft glowing edge, wide and short, the panel plain cream and empty; (5) a smaller blank sign panel on one post; (6) a stack of three small crates; (7) a slim antenna with a dish; (8) a short pipe coming out of the ground with a valve. Wide 16:9. The magenta is perfectly flat with no texture, grain, shadow or glow. No text, letters or numbers anywhere, including on the signs.",
+      "prompt_sha256": "1eaf228063cb003fd844287ac836d0be033b60a5ef644f8ca45bb4950ee4df83",
+      "ratio": "16:9",
+      "ratio_source": "stated in prompt",
+      "size_rule": null,
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "all_edges",
+      "key_region_rationale": "separate objects or figures spaced apart on a flat key background",
+      "continuation_of": null,
+      "step_title": "PROPS",
+      "expected_filename": "F1.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/F1.png",
+      "approved_path": "docs/plans/assets/planet/approved/F1.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "checkpoint STOP-D10 not passed",
+        "checkpoint STOP-E7 not passed",
+        "missing reference file docs/plans/assets/planet/style/night.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "F2",
+      "order": 55,
+      "step": "F",
+      "title": "Props sheet, day",
+      "derived_from": null,
+      "group_title": null,
+      "optional": false,
+      "source_line": 274,
+      "attach_line": "F1.png, style/day.png",
+      "attachments": [
+        {
+          "token": "F1.png",
+          "kind": "asset",
+          "id": "F1",
+          "path": "docs/plans/assets/planet/approved/F1.png"
+        },
+        {
+          "token": "style/day.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/day.png"
+        }
+      ],
+      "dependencies": [
+        "F1"
+      ],
+      "references": [
+        "docs/plans/assets/planet/style/day.png"
+      ],
+      "prompt": "Repaint the objects in the first attached image exactly as they are (same shapes, sizes and positions) in soft daylight, matching the second attached illustration: lamps and teal caps switched off, warm cream and terracotta metal, soft shadows. Keep the background perfectly flat solid magenta (#FF00FF). Same style. No text, letters or numbers.",
+      "prompt_sha256": "a9a9f3bb1405c823b44e193f4f2eda3efccd47dd3df15f287c2070520a2ac9c7",
+      "ratio": null,
+      "ratio_source": "prompt asks for the same size as the first attachment (F1)",
+      "size_rule": {
+        "same_as": "F1"
+      },
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "all_edges",
+      "key_region_rationale": "separate objects or figures spaced apart on a flat key background",
+      "continuation_of": null,
+      "step_title": "PROPS",
+      "expected_filename": "F2.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/F2.png",
+      "approved_path": "docs/plans/assets/planet/approved/F2.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency F1 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "checkpoint STOP-D10 not passed",
+        "checkpoint STOP-E7 not passed",
+        "missing reference file docs/plans/assets/planet/style/day.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "G1",
+      "order": 56,
+      "step": "G",
+      "title": "Observatory interior",
+      "derived_from": null,
+      "group_title": null,
+      "optional": false,
+      "source_line": 285,
+      "attach_line": "style/night.png, E7.png",
+      "attachments": [
+        {
+          "token": "style/night.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/night.png"
+        },
+        {
+          "token": "E7.png",
+          "kind": "asset",
+          "id": "E7",
+          "path": "docs/plans/assets/planet/approved/E7.png"
+        }
+      ],
+      "dependencies": [
+        "E7"
+      ],
+      "references": [
+        "docs/plans/assets/planet/style/night.png"
+      ],
+      "prompt": "In exactly the style of the attached illustrations, paint the inside of this observatory as a very wide 21:9 image, a cosy round room seen straight from the front like a theatre stage set, almost no perspective. The curved cream-panelled walls rise to the inside of the dome; through the open slit in the dome, a strip of starry night sky. In the centre stands a large brass-and-cream telescope on a sturdy mount, angled up toward the slit. Around the room, spaced clearly apart so each is easy to see:\n- on the left, a wooden desk with an open leather logbook, a warm desk lamp and a mug of chai;\n- a wall rack of brass scientific instruments (a sextant, a compass, dials, a small orrery);\n- a bookshelf of old books and rolled star charts;\n- a cork pinboard with four empty cream photo cards pinned on it (the cards are blank);\n- a framed certificate with a blank cream page and a small round terracotta seal (no writing);\n- a small friendly printer on a side table;\n- a vintage radio set with dials and a small glowing teal screen;\n- on the right, a wall of five blank framed boards in a row, like mission patches, each a plain cream panel with a different simple coloured border (terracotta, sage, teal, mustard, lilac), empty inside.\nA warm rug on the floor, a small plant, string lights along the dome's edge, warm lamplight mixed with cool starlight. Hand-painted storybook gouache on paper, paper grain, no black outlines, flat two-or-three-tone shading, cozy little sci-fi. No people. No text, no letters, no numbers, no logos anywhere.",
+      "prompt_sha256": "56c841a67b030bb52fc3ce4af643fdb01971f95e02c71cd60af1a562b79e67a3",
+      "ratio": "21:9",
+      "ratio_source": "stated in prompt",
+      "size_rule": null,
+      "key_color": null,
+      "key_hex": null,
+      "key_region": null,
+      "key_region_rationale": "no chroma key in prompt: the image is full-bleed artwork",
+      "continuation_of": null,
+      "step_title": "THE OBSERVATORY INSIDE AND THE TELESCOPE",
+      "expected_filename": "G1.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/G1.png",
+      "approved_path": "docs/plans/assets/planet/approved/G1.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency E7 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "checkpoint STOP-D10 not passed",
+        "checkpoint STOP-E7 not passed",
+        "missing reference file docs/plans/assets/planet/style/night.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "G2",
+      "order": 57,
+      "step": "G",
+      "title": "Telescope sky, piece 1",
+      "derived_from": null,
+      "group_title": null,
+      "optional": false,
+      "source_line": 300,
+      "attach_line": "B1.png",
+      "attachments": [
+        {
+          "token": "B1.png",
+          "kind": "asset",
+          "id": "B1",
+          "path": "docs/plans/assets/planet/approved/B1.png"
+        }
+      ],
+      "dependencies": [
+        "B1"
+      ],
+      "references": [],
+      "prompt": "In exactly the style of the attached image, paint a deep starry sky as seen through a telescope, as a very wide 21:9 panorama: much darker and richer than the attached sky, deep navy and near-black indigo, densely filled with stars of every size (many tiny, some medium, a few bright four-pointed sparkles), soft painted nebulae in lilac, violet, teal and rose, a small sparkling star cluster, and a faint spiral galaxy. Hand-painted gouache on textured paper, visible paper grain. No planets, no comets, no satellites, no lines between stars, no ground, no frame, no text. Fill the whole image edge to edge.",
+      "prompt_sha256": "939740bda4dd294278f60283ead82aacfb8148123c33402a04abfcf22443a6a0",
+      "ratio": "21:9",
+      "ratio_source": "stated in prompt",
+      "size_rule": null,
+      "key_color": null,
+      "key_hex": null,
+      "key_region": null,
+      "key_region_rationale": "no chroma key in prompt: the image is full-bleed artwork",
+      "continuation_of": null,
+      "step_title": "THE OBSERVATORY INSIDE AND THE TELESCOPE",
+      "expected_filename": "G2.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/G2.png",
+      "approved_path": "docs/plans/assets/planet/approved/G2.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency B1 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "checkpoint STOP-D10 not passed",
+        "checkpoint STOP-E7 not passed"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "G3",
+      "order": 58,
+      "step": "G",
+      "title": "Telescope sky, piece 2",
+      "derived_from": null,
+      "group_title": null,
+      "optional": false,
+      "source_line": 306,
+      "attach_line": "G2.png",
+      "attachments": [
+        {
+          "token": "G2.png",
+          "kind": "asset",
+          "id": "G2",
+          "path": "docs/plans/assets/planet/approved/G2.png"
+        }
+      ],
+      "dependencies": [
+        "G2"
+      ],
+      "references": [],
+      "prompt": "Continue the attached deep starry sky to the right as a new very wide 21:9 image. The left quarter must repeat the right quarter of the attached image as closely as possible, then the sky continues with new stars, a large soft nebula in rose and teal, and a second small star cluster. Same style, colours and paper grain. No planets, no comets, no satellites, no lines, no text.",
+      "prompt_sha256": "91246721b010680c5ab300911593ce11d2f7525469f23a627d3d3093d09dbf2a",
+      "ratio": "21:9",
+      "ratio_source": "stated in prompt",
+      "size_rule": null,
+      "key_color": null,
+      "key_hex": null,
+      "key_region": null,
+      "key_region_rationale": "no chroma key in prompt: the image is full-bleed artwork",
+      "continuation_of": "G2",
+      "step_title": "THE OBSERVATORY INSIDE AND THE TELESCOPE",
+      "expected_filename": "G3.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/G3.png",
+      "approved_path": "docs/plans/assets/planet/approved/G3.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency G2 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "checkpoint STOP-D10 not passed",
+        "checkpoint STOP-E7 not passed"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "G4",
+      "order": 59,
+      "step": "G",
+      "title": "Sky objects sheet",
+      "derived_from": null,
+      "group_title": null,
+      "optional": false,
+      "source_line": 311,
+      "attach_line": "G2.png",
+      "attachments": [
+        {
+          "token": "G2.png",
+          "kind": "asset",
+          "id": "G2",
+          "path": "docs/plans/assets/planet/approved/G2.png"
+        }
+      ],
+      "dependencies": [
+        "G2"
+      ],
+      "references": [],
+      "prompt": "In exactly the style of the attached image, paint these separate sky objects on a perfectly flat solid green (#00FF00) background, spaced well apart, not touching: (1) a bright comet with a glowing cream head and a long soft lilac-and-teal tail; (2) a small cute satellite with two solar-panel wings, a dish and a blinking light; (3) a floating radio beacon like a small buoy with an antenna, sending out three soft teal rings; (4) a small terracotta planet with a thin ring; (5) a small teal ocean planet; (6) a small lilac moon; (7) a bright four-pointed star with a soft halo. Hand-painted gouache, no black outlines, flat two-or-three-tone shading. The green is perfectly flat with no texture, grain, shadow or glow. Wide 16:9. No text.",
+      "prompt_sha256": "71b8725594e48750d8f9fb856bb4cc4468adec11cae380518c3191180850219e",
+      "ratio": "16:9",
+      "ratio_source": "stated in prompt",
+      "size_rule": null,
+      "key_color": "green",
+      "key_hex": "#00FF00",
+      "key_region": "all_edges",
+      "key_region_rationale": "separate objects or figures spaced apart on a flat key background",
+      "continuation_of": null,
+      "step_title": "THE OBSERVATORY INSIDE AND THE TELESCOPE",
+      "expected_filename": "G4.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/G4.png",
+      "approved_path": "docs/plans/assets/planet/approved/G4.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "dependency G2 not approved (status: blocked)",
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "checkpoint STOP-D10 not passed",
+        "checkpoint STOP-E7 not passed"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "G5",
+      "order": 60,
+      "step": "G",
+      "title": "Eyepiece ring",
+      "derived_from": null,
+      "group_title": null,
+      "optional": false,
+      "source_line": 317,
+      "attach_line": "style/night.png",
+      "attachments": [
+        {
+          "token": "style/night.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/night.png"
+        }
+      ],
+      "dependencies": [],
+      "references": [
+        "docs/plans/assets/planet/style/night.png"
+      ],
+      "prompt": "In exactly the style of the attached illustration, paint a single brass telescope eyepiece ring seen straight on, as a perfect circle filling most of a square 1:1 image: a thick round frame of warm brass with a knurled grip edge, a few small screws and a thin inner lip, softly lit. The inside of the ring and everything outside it are perfectly flat solid magenta (#FF00FF), with no texture, grain, shadow or glow. Hand-painted storybook gouache, no black outlines. No crosshair, no text, no numbers.",
+      "prompt_sha256": "fec63ca7f4567a29d22ca2bc53aed889772796253565505ce139330acbd95952",
+      "ratio": "1:1",
+      "ratio_source": "stated in prompt",
+      "size_rule": null,
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "corners",
+      "key_region_rationale": "a perfect circle filling most of a square image: only the corners are guaranteed background",
+      "continuation_of": null,
+      "step_title": "THE OBSERVATORY INSIDE AND THE TELESCOPE",
+      "expected_filename": "G5.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/G5.png",
+      "approved_path": "docs/plans/assets/planet/approved/G5.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "checkpoint STOP-D10 not passed",
+        "checkpoint STOP-E7 not passed",
+        "missing reference file docs/plans/assets/planet/style/night.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "H1",
+      "order": 61,
+      "step": "H",
+      "title": "Walk cycle sheet (helmet on)",
+      "derived_from": null,
+      "group_title": null,
+      "optional": false,
+      "source_line": 330,
+      "attach_line": "style/you.png, style/night.png",
+      "attachments": [
+        {
+          "token": "style/you.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/you.png"
+        },
+        {
+          "token": "style/night.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/night.png"
+        }
+      ],
+      "dependencies": [],
+      "references": [
+        "docs/plans/assets/planet/style/you.png",
+        "docs/plans/assets/planet/style/night.png"
+      ],
+      "prompt": "Using the first attached image as the exact character (same face, glasses, moustache, hair, cream spacesuit with terracotta trim, sage backpack with a light, round glass helmet) and the second attached image as the exact art style, draw a walk-cycle sprite sheet: eight frames of the same character walking, in strict side view facing right, arranged in two rows of four, every frame the same size and the same scale, the feet on the same baseline in every frame. The frames show one full step cycle: contact, down, passing, up, then the same with the other leg. Arms swing opposite the legs. Small cute chibi proportions, about 2.5 heads tall. Hand-painted storybook gouache, paper grain, no black outlines, flat two-or-three-tone shading. The background is perfectly flat solid magenta (#FF00FF) with no texture, grain, shadow or ground. The helmet glass is clear, so the magenta shows through it. No text, no numbers, no frame borders.",
+      "prompt_sha256": "66cfde3c54fbaba78045db0fb6597dad08a7c7402056ee354dcda3b7a66a6381",
+      "ratio": null,
+      "ratio_source": "not specified in PROMPTS.md",
+      "size_rule": null,
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "all_edges",
+      "key_region_rationale": "separate objects or figures spaced apart on a flat key background",
+      "continuation_of": null,
+      "step_title": "YOU",
+      "expected_filename": "H1.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/H1.png",
+      "approved_path": "docs/plans/assets/planet/approved/H1.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "checkpoint STOP-D10 not passed",
+        "checkpoint STOP-E7 not passed",
+        "checkpoint STOP-G5 not passed",
+        "missing reference file docs/plans/assets/planet/style/you.png",
+        "missing reference file docs/plans/assets/planet/style/night.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "H2",
+      "order": 62,
+      "step": "H",
+      "title": "Poses sheet (helmet on)",
+      "derived_from": null,
+      "group_title": null,
+      "optional": false,
+      "source_line": 336,
+      "attach_line": "style/you.png, style/night.png",
+      "attachments": [
+        {
+          "token": "style/you.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/you.png"
+        },
+        {
+          "token": "style/night.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/night.png"
+        }
+      ],
+      "dependencies": [],
+      "references": [
+        "docs/plans/assets/planet/style/you.png",
+        "docs/plans/assets/planet/style/night.png"
+      ],
+      "prompt": "Using the first attached image as the exact character and the second as the exact art style, draw four poses of the same character, same size and scale, side by side in a row, feet on the same baseline: (1) standing still, side view facing right, relaxed; (2) standing, side view facing right, head tilted back looking up at the sky in wonder; (3) facing us, waving with one hand, smiling; (4) facing us, standing relaxed, turning. Small cute chibi proportions, about 2.5 heads tall. Hand-painted storybook gouache, paper grain, no black outlines, flat two-or-three-tone shading. Perfectly flat solid magenta (#FF00FF) background with no texture, shadow or ground. The helmet glass is clear. No text.",
+      "prompt_sha256": "84ee9dfaa5c20854ddbc7d49de3e12da1a70ae23f61d6cf4d6b63aa2c679bde6",
+      "ratio": null,
+      "ratio_source": "not specified in PROMPTS.md",
+      "size_rule": null,
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "all_edges",
+      "key_region_rationale": "separate objects or figures spaced apart on a flat key background",
+      "continuation_of": null,
+      "step_title": "YOU",
+      "expected_filename": "H2.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/H2.png",
+      "approved_path": "docs/plans/assets/planet/approved/H2.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "checkpoint STOP-D10 not passed",
+        "checkpoint STOP-E7 not passed",
+        "checkpoint STOP-G5 not passed",
+        "missing reference file docs/plans/assets/planet/style/you.png",
+        "missing reference file docs/plans/assets/planet/style/night.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "H3",
+      "order": 63,
+      "step": "H",
+      "title": "Indoor poses (helmet off)",
+      "derived_from": null,
+      "group_title": null,
+      "optional": false,
+      "source_line": 342,
+      "attach_line": "style/you.png, style/night.png",
+      "attachments": [
+        {
+          "token": "style/you.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/you.png"
+        },
+        {
+          "token": "style/night.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/night.png"
+        }
+      ],
+      "dependencies": [],
+      "references": [
+        "docs/plans/assets/planet/style/you.png",
+        "docs/plans/assets/planet/style/night.png"
+      ],
+      "prompt": "Using the first attached image as the exact character and the second as the exact art style, draw four poses of the same character WITHOUT the helmet (the spacesuit stays on, the helmet held under one arm or set aside, hair a little messy), same size and scale, side by side in a row, feet on the same baseline: (1) standing facing us, relaxed, smiling; (2) waving at us; (3) three-quarter view turned to the left, pointing at something; (4) three-quarter view turned to the right, pointing at something. Small cute chibi proportions, about 2.5 heads tall. Hand-painted storybook gouache, paper grain, no black outlines, flat two-or-three-tone shading. Perfectly flat solid magenta (#FF00FF) background with no texture, shadow or ground. No text.",
+      "prompt_sha256": "a85a1d93ad0754879ec1bc094cdbeff65cc74eb18e36ad99fe7d31e1b674f976",
+      "ratio": null,
+      "ratio_source": "not specified in PROMPTS.md",
+      "size_rule": null,
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "all_edges",
+      "key_region_rationale": "separate objects or figures spaced apart on a flat key background",
+      "continuation_of": null,
+      "step_title": "YOU",
+      "expected_filename": "H3.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/H3.png",
+      "approved_path": "docs/plans/assets/planet/approved/H3.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "checkpoint STOP-D10 not passed",
+        "checkpoint STOP-E7 not passed",
+        "checkpoint STOP-G5 not passed",
+        "missing reference file docs/plans/assets/planet/style/you.png",
+        "missing reference file docs/plans/assets/planet/style/night.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    },
+    {
+      "id": "H4",
+      "order": 64,
+      "step": "H",
+      "title": "Cut-out rig (only if Claude asks)",
+      "derived_from": null,
+      "group_title": null,
+      "optional": true,
+      "source_line": 351,
+      "attach_line": "style/you.png, style/night.png",
+      "attachments": [
+        {
+          "token": "style/you.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/you.png"
+        },
+        {
+          "token": "style/night.png",
+          "kind": "style",
+          "path": "docs/plans/assets/planet/style/night.png"
+        }
+      ],
+      "dependencies": [],
+      "references": [
+        "docs/plans/assets/planet/style/you.png",
+        "docs/plans/assets/planet/style/night.png"
+      ],
+      "prompt": "Using the first attached image as the exact character and the second as the exact art style, draw the character in strict side view facing right, standing straight with arms hanging down, and next to it the same character taken apart into separate pieces laid out well apart, not touching: the head with helmet; the torso with backpack; the upper arm, lower arm with glove, for the near arm and the far arm; the thigh, the lower leg with boot, for the near leg and the far leg. Every piece complete (no missing parts where they joined), same scale. Hand-painted storybook gouache, paper grain, no black outlines, flat shading. Perfectly flat solid magenta (#FF00FF) background. No text.",
+      "prompt_sha256": "44493a22f98d428c3da9e7bb2a83ba2389b923ca63eb8c1dc3891f9932e4c1f5",
+      "ratio": null,
+      "ratio_source": "not specified in PROMPTS.md",
+      "size_rule": null,
+      "key_color": "magenta",
+      "key_hex": "#FF00FF",
+      "key_region": "all_edges",
+      "key_region_rationale": "separate objects or figures spaced apart on a flat key background",
+      "continuation_of": null,
+      "step_title": "YOU",
+      "expected_filename": "H4.png",
+      "incoming_path": "docs/plans/assets/planet/incoming/H4.png",
+      "approved_path": "docs/plans/assets/planet/approved/H4.png",
+      "status": "blocked",
+      "attempts": 0,
+      "requested": false,
+      "blocked_reasons": [
+        "optional: only made if Claude asks (`python scripts/planet_images.py enable-optional H4 --reason ...`)",
+        "checkpoint STOP-B8 not passed",
+        "checkpoint STOP-C12 not passed",
+        "checkpoint STOP-D10 not passed",
+        "checkpoint STOP-E7 not passed",
+        "checkpoint STOP-G5 not passed",
+        "checkpoint STOP-H3 not passed",
+        "missing reference file docs/plans/assets/planet/style/you.png",
+        "missing reference file docs/plans/assets/planet/style/night.png"
+      ],
+      "candidates": [],
+      "validation": null,
+      "validation_history": [],
+      "approved_file": null,
+      "approved_sha256": null,
+      "approved_size": null,
+      "approved_at": null,
+      "approval_note": null,
+      "failure_reason": null,
+      "rejections": [],
+      "notes": [],
+      "history": []
+    }
+  ]
+}

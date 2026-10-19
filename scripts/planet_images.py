@@ -5,7 +5,8 @@ Source of truth: docs/plans/assets/planet/PROMPTS.md (parsed, never edited).
 
 This script manages prompts, dependencies, filenames, validation, approvals
 and QA checkpoints. It does NOT generate images: a human generates each image
-by hand in ChatGPT and saves it into the incoming folder. It never approves
+by hand in ChatGPT. The `go` command assists: it copies the prompt, opens
+ChatGPT, stages the attachments and imports the downloaded image. It never approves
 anything on its own; approval and checkpoint sign-off are explicit human
 commands.
 
@@ -30,6 +31,7 @@ import shutil
 import struct
 import subprocess
 import sys
+import time
 import zlib
 from pathlib import Path
 
@@ -1841,6 +1843,299 @@ def cmd_export_prompt(paths: Paths, args) -> int:
     return 0
 
 
+# ---------------------------------------------------------------------------
+# Desktop helpers for assisted mode (best effort: each one falls back to
+# printed instructions when the platform does not support it)
+# ---------------------------------------------------------------------------
+
+CHATGPT_URL = "https://chatgpt.com/"
+DOWNLOAD_EXTS = (".png", ".jpg", ".jpeg", ".webp")
+PARTIAL_EXTS = (".crdownload", ".download", ".part", ".tmp")
+
+
+def _opener():
+    if sys.platform == "darwin":
+        return ["open"]
+    if os.name == "nt":
+        return "startfile"
+    if shutil.which("wslview"):
+        return ["wslview"]
+    if shutil.which("xdg-open") and (os.environ.get("DISPLAY") or os.environ.get("WAYLAND_DISPLAY")):
+        return ["xdg-open"]
+    return None
+
+
+def open_paths(targets: list[Path]) -> bool:
+    """Open files or folders with the system viewer. Returns False if that is not possible."""
+    opener = _opener()
+    if opener is None:
+        return False
+    for t in targets:
+        try:
+            if opener == "startfile":
+                os.startfile(t)  # type: ignore[attr-defined]
+            else:
+                subprocess.Popen(opener + [str(t)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        except OSError:
+            return False
+    return True
+
+
+def copy_to_clipboard(text: str) -> bool:
+    for cmd in (["pbcopy"], ["wl-copy"], ["xclip", "-selection", "clipboard"], ["clip"]):
+        if shutil.which(cmd[0]):
+            try:
+                subprocess.run(cmd, input=text.encode("utf-8"), check=True, timeout=5,
+                               stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                return True
+            except (OSError, subprocess.SubprocessError):
+                continue
+    return False
+
+
+def open_url(url: str) -> bool:
+    import webbrowser
+
+    try:
+        return bool(webbrowser.open(url, new=2))
+    except webbrowser.Error:
+        return False
+
+
+def stage_attachments(paths: Paths, a: dict) -> Path:
+    """Copy the asset's attachments into workflow/attach/ as 1-night.png, 2-B1.png, ... (in prompt order)."""
+    d = paths.workflow / "attach"
+    if d.exists():
+        shutil.rmtree(d)
+    d.mkdir(parents=True)
+    for i, att in enumerate(a["attachments"], 1):
+        label = att["id"] if att["kind"] == "asset" else Path(att["token"]).stem
+        shutil.copy2(paths.abs(att["path"]), d / f"{i}-{label}.png")
+    return d
+
+
+def snapshot_folder(folder: Path) -> dict:
+    out = {}
+    for p in folder.iterdir():
+        if p.is_file():
+            st = p.stat()
+            out[p.name] = (st.st_mtime, st.st_size)
+    return out
+
+
+def wait_for_download(folder: Path, before: dict, timeout: float, poll: float = 1.0) -> Path | None:
+    """Return the first new or changed image in `folder` once its size stops changing."""
+    deadline = time.monotonic() + timeout
+    sizes: dict[str, int] = {}
+    while time.monotonic() < deadline:
+        for p in sorted(folder.iterdir()):
+            if not p.is_file() or p.name.startswith(".") or p.suffix.lower() not in DOWNLOAD_EXTS:
+                continue
+            st = p.stat()
+            if before.get(p.name) == (st.st_mtime, st.st_size):
+                continue
+            if any((folder / (p.name + ext)).exists() for ext in PARTIAL_EXTS):
+                continue
+            if st.st_size > 0 and sizes.get(p.name) == st.st_size:
+                return p
+            sizes[p.name] = st.st_size
+        time.sleep(poll)
+    return None
+
+
+def next_incoming_name(paths: Paths, aid: str) -> str:
+    if not candidate_files(paths, aid):
+        return f"{aid}.png"
+    n = 1
+    while any(paths.incoming.glob(f"{aid}-{n}.*")):
+        n += 1
+    return f"{aid}-{n}.png"
+
+
+def import_download(src: Path, dest: Path) -> tuple[Path, str]:
+    """Move a downloaded image to `dest` (a .png path), converting to PNG when needed."""
+    if src.suffix.lower() == ".png":
+        shutil.move(str(src), dest)
+        return dest, ""
+    try:
+        from PIL import Image
+
+        with Image.open(src) as im:
+            im.save(dest, "PNG")
+        src.unlink()
+        return dest, f" (converted from {src.suffix} to PNG)"
+    except ImportError:
+        pass
+    except Exception as exc:  # unreadable download: keep it as-is so validate reports it
+        kept = dest.with_suffix(src.suffix.lower())
+        shutil.move(str(src), kept)
+        return kept, f" (could not convert: {exc})"
+    if shutil.which("sips"):
+        res = subprocess.run(["sips", "-s", "format", "png", str(src), "--out", str(dest)],
+                             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        if res.returncode == 0 and dest.is_file():
+            src.unlink()
+            return dest, f" (converted from {src.suffix} to PNG)"
+    kept = dest.with_suffix(src.suffix.lower())
+    shutil.move(str(src), kept)
+    return kept, f" (kept as {src.suffix}: no PNG converter available)"
+
+
+def _call(fn, paths: Paths, **kw) -> int:
+    return fn(paths, argparse.Namespace(**kw))
+
+
+def _go_generate(paths: Paths, a: dict, downloads: Path, args) -> bool:
+    """Set up one generation in ChatGPT and import the image the user downloads."""
+    m = load_manifest(paths)
+    a = assets_by_id(m)[a["id"]]
+    print(f"\n=== {a['id']} — {a['title']} (attempt {a['attempts']}) ===")
+    missing = [att["path"] for att in a["attachments"] if not paths.abs(att["path"]).is_file()]
+    if missing:
+        print("Cannot start: missing " + ", ".join(missing))
+        return False
+    write_next_prompt(paths, render_prompt_doc(m, paths, a, f"{SCRIPT} go"))
+    before = snapshot_folder(downloads)
+    staged = stage_attachments(paths, a)
+    names = sorted(p.name for p in staged.iterdir())
+
+    if copy_to_clipboard(a["prompt"]):
+        print("1. The prompt is on your clipboard.")
+    else:
+        print(f"1. Copy the prompt from {paths.rel(paths.next_prompt)} (section 2).")
+    if not args.no_browser and open_url(CHATGPT_URL):
+        print("2. A new ChatGPT chat is open in your browser.")
+    else:
+        print(f"2. Open a new chat at {CHATGPT_URL}")
+    shown = open_paths([staged])
+    print(f"3. Drag {'these' if len(names) > 1 else 'this'} into the chat"
+          + (", in this order" if len(names) > 1 else "") + ": " + ", ".join(names)
+          + ("" if shown else f"  (folder: {paths.rel(staged)})"))
+    shape = f"{a['ratio']} ratio" if a["ratio"] else (
+        f"same size as {a['size_rule']['same_as']}" if a["size_rule"] else "ratio not specified")
+    print(f"4. Paste the prompt, send it, then download the image ({shape}).")
+    print("   Regenerate first if you see text, black outlines, a 3D/photo look, a watermark"
+          + (", or a background that isn't flat " + a["key_hex"] if a["key_hex"] else "") + ".")
+    print(f"Waiting for the download in {downloads} ... (Ctrl+C to stop)")
+
+    f = wait_for_download(downloads, before, args.timeout * 60, args.poll)
+    if f is None:
+        print(f"No new image arrived within {args.timeout:g} minutes. Run `go` again when you're ready.")
+        return False
+    paths.incoming.mkdir(parents=True, exist_ok=True)
+    dest, note = import_download(f, paths.incoming / next_incoming_name(paths, a["id"]))
+    audit(paths, {"event": "download_imported", "asset": a["id"], "from": f.name, "to": paths.rel(dest)})
+    print(f"Got it: {f.name} -> {paths.rel(dest)}{note}")
+    return True
+
+
+def _go_review(paths: Paths, a: dict, downloads: Path, args) -> bool:
+    m = load_manifest(paths)
+    a = assets_by_id(m)[a["id"]]
+    print(f"\n=== Review {a['id']} — {a['title']} ===")
+    for c in a["candidates"]:
+        print("\n".join(format_validation(c)))
+    files = candidate_files(paths, a["id"])
+    if files and open_paths(files):
+        print("Opened in your image viewer. Compare it with the attachments and the prompt.")
+    else:
+        for f in files:
+            print(f"Open and look at: {paths.rel(f)}")
+    print("The checks can't see style, text, outlines or composition. That's your call.")
+    passing = [c for c in a["candidates"] if not c["errors"]]
+    while True:
+        ans = input("[a] approve  [r] reject  [t] try again  [q] quit: ").strip().lower()
+        if ans == "a":
+            chosen = passing[0]
+            if len(passing) > 1:
+                for i, c in enumerate(passing, 1):
+                    print(f"  {i}. {c['name']} ({c['result']})")
+                pick = input("Which one? Number: ").strip()
+                if not pick.isdigit() or not 1 <= int(pick) <= len(passing):
+                    print("Pick one of the numbers above.")
+                    continue
+                chosen = passing[int(pick) - 1]
+            accept = False
+            if chosen["warnings"]:
+                for c in chosen["checks"]:
+                    if c["result"] == "warn":
+                        print(f"  warning: {c['check']}: {c['detail']}")
+                if input("Approve despite these warnings? [y/N]: ").strip().lower() != "y":
+                    continue
+                accept = True
+            try:
+                _call(cmd_approve, paths, id=a["id"], file=chosen["name"], note=None,
+                      accept_warnings=accept, yes=True)
+            except CliError as exc:
+                print(f"error: {exc}")
+                continue
+            return True
+        if ans == "r":
+            reason = input("What's wrong with it? ").strip()
+            if not reason:
+                print("A reason is required, so it's recorded for the retry.")
+                continue
+            _call(cmd_reject, paths, id=a["id"], reason=reason, file=None)
+            _call(cmd_retry, paths, id=a["id"])
+            return True
+        if ans == "t":
+            if not _go_generate(paths, a, downloads, args):
+                return False
+            _call(cmd_validate, paths, id=a["id"])
+            return True
+        if ans == "q":
+            return False
+        print("Type a, r, t or q.")
+
+
+def cmd_go(paths: Paths, args) -> int:
+    if not sys.stdin.isatty():
+        raise CliError("`go` is interactive: run it in a terminal")
+    downloads = Path(args.downloads).expanduser()
+    if not downloads.is_dir():
+        raise CliError(f"downloads folder {downloads} not found; pass --downloads PATH")
+    print("Assisted mode: one image at a time. Press Ctrl+C to stop; `go` resumes where you left off.")
+    try:
+        while True:
+            m = load_manifest(paths)
+            scan_incoming(m, paths)
+            save_manifest(paths, m)
+            fl = in_flight(m)
+            if not fl:
+                ready = any(x["status"] == "ready" for x in m["assets"])
+                _advance(m, paths)
+                save_manifest(paths, m)
+                if not ready:
+                    cp = next((c for c in m["checkpoints"] if c["status"] != "passed"
+                               and all(assets_by_id(m)[x]["status"] == "approved" for x in c["assets"])), None)
+                    if cp:
+                        print(f"\n`go` paused at {cp['id']}. Commit and push the approved images, ask Claude "
+                              f"to check them, then run `{SCRIPT} checkpoint {cp['id']} --pass` and `go` again.")
+                    return 0
+                continue
+            a = fl[0]
+            if a["status"] in ("prompt_prepared", "awaiting_image"):
+                if not _go_generate(paths, a, downloads, args):
+                    return 0
+            elif a["status"] == "received":
+                _call(cmd_validate, paths, id=a["id"])
+                m = load_manifest(paths)
+                if assets_by_id(m)[a["id"]]["status"] == "failed":
+                    print("The automatic checks failed, so this image can't be approved.")
+            elif a["status"] == "needs_review":
+                if not _go_review(paths, a, downloads, args):
+                    return 0
+            else:  # failed
+                print(f"\n{a['id']} failed: {a['failure_reason']}")
+                ans = input("[r] retry with a new attempt  [q] quit: ").strip().lower()
+                if ans != "r":
+                    return 0
+                _call(cmd_retry, paths, id=a["id"])
+    except KeyboardInterrupt:
+        print("\nStopped. Nothing is lost; run `go` again to continue.")
+        return 0
+
+
 def cmd_review(paths: Paths, args) -> int:
     m = load_manifest(paths)
     a = get_asset(m, args.id)
@@ -1860,27 +2155,8 @@ def cmd_review(paths: Paths, args) -> int:
           "watermark, wrong style or composition, and continuity with the attached references.")
     for f in files:
         print(f"  file: {paths.rel(f)}")
-    if files and not args.no_open:
-        opener = None
-        if sys.platform == "darwin":
-            opener = ["open"]
-        elif os.name == "nt":
-            opener = "startfile"
-        elif shutil.which("wslview"):
-            opener = ["wslview"]
-        elif shutil.which("xdg-open") and (os.environ.get("DISPLAY") or os.environ.get("WAYLAND_DISPLAY")):
-            opener = ["xdg-open"]
-        if opener is None:
-            print("  (no image viewer available here; open the file(s) above yourself)")
-        else:
-            for f in files:
-                try:
-                    if opener == "startfile":
-                        os.startfile(f)  # type: ignore[attr-defined]
-                    else:
-                        subprocess.Popen(opener + [str(f)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-                except OSError as exc:
-                    print(f"  could not open {f.name}: {exc}")
+    if files and not args.no_open and not open_paths(files):
+        print("  (no image viewer available here; open the file(s) above yourself)")
     if a["status"] == "needs_review":
         print(f"  Decide: `{SCRIPT} approve {a['id']}` or `{SCRIPT} reject {a['id']} --reason \"...\"`")
     return 0
@@ -1953,6 +2229,13 @@ def build_parser() -> argparse.ArgumentParser:
     s = sub.add_parser("init", help="build the manifest from PROMPTS.md")
     s.add_argument("--refresh", action="store_true", help="re-read PROMPTS.md, keep progress")
     s.set_defaults(func=cmd_init)
+
+    s = sub.add_parser("go", help="assisted mode: walks you through every image, one at a time")
+    s.add_argument("--downloads", default=str(Path.home() / "Downloads"), help="where your browser saves downloads")
+    s.add_argument("--timeout", type=float, default=30, help="minutes to wait for each download (default 30)")
+    s.add_argument("--poll", type=float, default=1.0, help=argparse.SUPPRESS)
+    s.add_argument("--no-browser", action="store_true", help="don't open ChatGPT in the browser")
+    s.set_defaults(func=cmd_go)
 
     s = sub.add_parser("next", help="prepare the next eligible image prompt")
     s.set_defaults(func=cmd_next)

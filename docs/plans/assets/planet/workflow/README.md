@@ -28,7 +28,33 @@ the surrounding instructions differ.
    `PROMPTS.md`. Any other command does this automatically if the manifest is
    missing.
 
-## The loop, one image at a time
+## Quickest way: assisted mode
+
+```
+python3 scripts/planet_images.py go
+```
+
+Leave it running in a Terminal window. For each image it:
+
+1. copies the prompt to your clipboard,
+2. opens a new ChatGPT chat in your browser,
+3. opens a folder (`workflow/attach/`) holding the files to attach, numbered in order (`1-night.png`, `2-B1.png`),
+4. waits for you to drag those in, paste with Cmd+V, generate, and click **download**,
+5. finds the new file in `~/Downloads`, renames it (`B1.png`, or `B1-1.png` for another try),
+   moves it to `incoming/`, converts WebP/JPEG to PNG, validates it and opens it,
+6. asks you: **[a]** approve, **[r]** reject (asks why, then starts a new attempt),
+   **[t]** try again (keeps both tries so you can pick), **[q]** quit.
+
+After an approval it goes straight on to the next image. It pauses at every STOP
+checkpoint so Claude can check the images. Press Ctrl+C at any time; running `go`
+again picks up where you left off. Options: `--downloads PATH` if your browser
+saves elsewhere, `--timeout MINUTES` (default 30) for how long to wait for each
+download, `--no-browser`.
+
+Generation itself stays manual in ChatGPT: ChatGPT Go has no API, and scripting
+the ChatGPT website isn't allowed by its terms.
+
+## The loop step by step (what `go` does for you)
 
 1. Run `python scripts/planet_images.py next`.
 2. Open `docs/plans/assets/planet/workflow/next-prompt.md`.
@@ -57,6 +83,7 @@ asset again instead of starting another one.
 | Command | What it does |
 |---|---|
 | `init [--refresh]` | Build the manifest from PROMPTS.md. `--refresh` re-reads PROMPTS.md after it changed and keeps all progress. |
+| `go [--downloads PATH] [--timeout MIN]` | Assisted mode: clipboard, browser, attachments folder, download import, validation and the approve/reject prompt, image after image. |
 | `next` | Prepare `next-prompt.md` for the next eligible asset (dependencies approved, references present, no unpassed checkpoint before it). If a checkpoint is due, writes the checkpoint report instead. |
 | `status [--all] [--json]` | Progress counts, the asset in flight, pending reviews, checkpoints, missing reference files, and stray files in `incoming/`. |
 | `validate [ID]` | Validate images in `incoming/` for assets that are waiting for one. |
@@ -160,6 +187,7 @@ docs/plans/assets/planet/
     next-prompt.md      the current instruction sheet
     audit.jsonl         append-only log of every state change and decision
     exports/            prompt sheets written by export-prompt
+    attach/             attachments staged by `go` (temporary, git-ignored)
 scripts/planet_images.py
 scripts/tests/test_planet_images.py
 ```

@@ -6,6 +6,7 @@ Run:  python -m unittest discover -s scripts/tests -v
 from __future__ import annotations
 
 import contextlib
+import importlib.util
 import io
 import json
 import os
@@ -13,6 +14,8 @@ import shutil
 import struct
 import sys
 import tempfile
+import threading
+import time
 import unittest
 import zlib
 from pathlib import Path
@@ -610,6 +613,123 @@ class TestCheckpoint(Workspace):
         self.ok("validate")
         self.ok("reject", "B1", "--reason", "seam visible")
         self.fails("checkpoint", "STOP-B8", "--pass", "--yes", contains="B1")
+
+
+# ---------------------------------------------------------------------------
+# Assisted mode (go)
+# ---------------------------------------------------------------------------
+
+
+class TestGo(Workspace):
+    """`go` with the desktop side faked: each clipboard copy is followed by a 'browser download'."""
+
+    def setUp(self):
+        super().setUp()
+        self.downloads = self.tmp / "Downloads"
+        self.downloads.mkdir()
+        self.queue: list[tuple[str, bytes]] = []  # downloads to deliver, one per generation
+        self.clipboard: list[str] = []
+
+        def fake_copy(text):
+            self.clipboard.append(text)
+            if self.queue:
+                name, data = self.queue.pop(0)
+                threading.Timer(0.15, lambda: (self.downloads / name).write_bytes(data)).start()
+            return True
+
+        patches = [
+            mock.patch.object(pi, "copy_to_clipboard", side_effect=fake_copy),
+            mock.patch.object(pi, "open_url", return_value=True),
+            mock.patch.object(pi, "open_paths", return_value=True),
+            mock.patch.object(sys.stdin, "isatty", return_value=True),
+        ]
+        for pt in patches:
+            pt.start()
+            self.addCleanup(pt.stop)
+
+    def go(self, answers):
+        with mock.patch("builtins.input", side_effect=list(answers)):
+            return self.run_cli("go", "--downloads", str(self.downloads), "--timeout", "0.02", "--poll", "0.05")
+
+    def test_full_cycle_imports_validates_and_moves_on(self):
+        self.queue = [("ChatGPT Image Oct 19.png", sky(210, 90))]
+        rc, out, err = self.go(["a"])
+        self.assertEqual(rc, 0, err)
+        self.assertEqual(self.asset("B1")["status"], "approved")
+        self.assertTrue((self.paths.approved / "B1.png").is_file())
+        self.assertFalse((self.downloads / "ChatGPT Image Oct 19.png").exists())
+        # It went straight on to B2, with approved B1 staged as the attachment, then timed out waiting.
+        self.assertEqual(self.asset("B2")["status"], "prompt_prepared")
+        self.assertEqual(self.clipboard[-1], self.asset("B2")["prompt"])
+        self.assertEqual(sorted(p.name for p in (self.paths.workflow / "attach").iterdir()), ["1-B1.png"])
+        self.assertIn("No new image arrived", out)
+
+    def test_existing_downloads_are_ignored(self):
+        (self.downloads / "old.png").write_bytes(sky(210, 90))
+        rc, out, _ = self.go([])
+        self.assertIn("No new image arrived", out)
+        self.assertEqual(self.asset("B1")["status"], "prompt_prepared")
+        self.assertTrue((self.downloads / "old.png").exists())
+
+    def test_reject_records_reason_and_starts_next_attempt(self):
+        self.queue = [("one.png", sky(210, 90)), ("two.png", sky(210, 90))]
+        rc, out, err = self.go(["r", "planets in the sky", "a"])
+        self.assertEqual(rc, 0, err)
+        a = self.asset("B1")
+        self.assertEqual((a["status"], a["attempts"]), ("approved", 2))
+        self.assertEqual(a["rejections"][0]["reason"], "planets in the sky")
+        self.assertTrue((self.paths.rejected / "B1" / "attempt-1" / "B1.png").is_file())
+
+    def test_try_again_keeps_both_and_asks_which(self):
+        self.queue = [("one.png", sky(210, 90)), ("two.png", sky(210, 90))]
+        rc, out, err = self.go(["t", "a", "2"])
+        self.assertEqual(rc, 0, err)
+        a = self.asset("B1")
+        self.assertEqual(a["status"], "approved")
+        self.assertEqual(a["validation"]["name"], "B1-1.png")
+        self.assertTrue((self.paths.rejected / "B1" / "attempt-1" / "B1.png").is_file())
+
+    def test_warnings_need_a_yes(self):
+        self.queue = [("wide.png", sky(150, 100))]
+        rc, out, err = self.go(["a", "n", "q"])
+        self.assertEqual(self.asset("B1")["status"], "needs_review")
+        self.assertIn("aspect_ratio", out)
+
+    def test_failed_validation_offers_retry(self):
+        self.queue = [("broken.png", b"not an image")]
+        rc, out, err = self.go(["q"])
+        self.assertEqual(self.asset("B1")["status"], "failed")
+        self.assertIn("can't be approved", out)
+
+    @unittest.skipUnless(importlib.util.find_spec("PIL"), "needs Pillow to make a WebP fixture")
+    def test_webp_download_is_converted(self):
+        from PIL import Image
+
+        img = Image.open(io.BytesIO(sky(210, 90)))
+        buf = io.BytesIO()
+        img.save(buf, "WEBP", lossless=True)
+        self.queue = [("image.webp", buf.getvalue())]
+        rc, out, err = self.go(["q"])
+        self.assertIn("converted from .webp to PNG", out)
+        self.assertTrue((self.paths.incoming / "B1.png").is_file())
+        self.assertEqual(self.asset("B1")["status"], "needs_review")
+
+    def test_needs_a_terminal(self):
+        with mock.patch.object(sys.stdin, "isatty", return_value=False):
+            self.fails("go", "--downloads", str(self.downloads), contains="interactive")
+
+
+class TestWaitForDownload(unittest.TestCase):
+    def test_skips_partial_and_waits_for_stable_size(self):
+        d = Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, d, True)
+        (d / "a.png").write_bytes(b"x" * 10)
+        (d / "a.png.crdownload").write_bytes(b"")
+        before = {}
+        self.assertIsNone(pi.wait_for_download(d, before, timeout=0.2, poll=0.05))
+        (d / "a.png.crdownload").unlink()
+        self.assertEqual(pi.wait_for_download(d, before, timeout=0.5, poll=0.05).name, "a.png")
+        self.assertIsNone(pi.wait_for_download(d, pi.snapshot_folder(d), timeout=0.2, poll=0.05))
 
 
 if __name__ == "__main__":

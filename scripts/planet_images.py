@@ -20,6 +20,7 @@ docs/plans/assets/planet/workflow/README.md for the full workflow.
 from __future__ import annotations
 
 import argparse
+import contextlib
 import datetime as dt
 import hashlib
 import io
@@ -1756,7 +1757,8 @@ def cmd_approve(paths: Paths, args) -> int:
             left = [x for x in c["assets"] if assets_by_id(m)[x]["status"] != "approved"]
             print(f"Checkpoint {c['id']}: " + (f"still waiting for {', '.join(left)}" if left
                                                 else f"all assets approved; sign off with `checkpoint {c['id']} --pass`"))
-    print(f"Next: `{SCRIPT} next`")
+    if not getattr(args, "quiet_next", False):
+        print(f"Next: `{SCRIPT} next`")
     return 0
 
 
@@ -1981,6 +1983,16 @@ def import_download(src: Path, dest: Path) -> tuple[Path, str]:
     return kept, f" (kept as {src.suffix}: no PNG converter available)"
 
 
+def _drain_stdin() -> None:
+    """Drop anything typed while `go` was waiting, so it isn't read as the next answer."""
+    try:
+        import termios
+
+        termios.tcflush(sys.stdin, termios.TCIFLUSH)
+    except Exception:  # not a real terminal (or not POSIX): nothing to drain
+        pass
+
+
 def _call(fn, paths: Paths, **kw) -> int:
     return fn(paths, argparse.Namespace(**kw))
 
@@ -2043,6 +2055,7 @@ def _go_review(paths: Paths, a: dict, downloads: Path, args) -> bool:
             print(f"Open and look at: {paths.rel(f)}")
     print("The checks can't see style, text, outlines or composition. That's your call.")
     passing = [c for c in a["candidates"] if not c["errors"]]
+    _drain_stdin()
     while True:
         ans = input("[a] approve  [r] reject  [t] try again  [q] quit: ").strip().lower()
         if ans == "a":
@@ -2065,7 +2078,7 @@ def _go_review(paths: Paths, a: dict, downloads: Path, args) -> bool:
                 accept = True
             try:
                 _call(cmd_approve, paths, id=a["id"], file=chosen["name"], note=None,
-                      accept_warnings=accept, yes=True)
+                      accept_warnings=accept, yes=True, quiet_next=True)
             except CliError as exc:
                 print(f"error: {exc}")
                 continue
@@ -2103,7 +2116,11 @@ def cmd_go(paths: Paths, args) -> int:
             fl = in_flight(m)
             if not fl:
                 ready = any(x["status"] == "ready" for x in m["assets"])
-                _advance(m, paths)
+                if ready:  # _go_generate prints its own instructions for the prepared asset
+                    with contextlib.redirect_stdout(io.StringIO()):
+                        _advance(m, paths)
+                else:
+                    _advance(m, paths)
                 save_manifest(paths, m)
                 if not ready:
                     cp = next((c for c in m["checkpoints"] if c["status"] != "passed"
@@ -2115,6 +2132,7 @@ def cmd_go(paths: Paths, args) -> int:
                 continue
             a = fl[0]
             if a["status"] in ("prompt_prepared", "awaiting_image"):
+                _drain_stdin()
                 if not _go_generate(paths, a, downloads, args):
                     return 0
             elif a["status"] == "received":
